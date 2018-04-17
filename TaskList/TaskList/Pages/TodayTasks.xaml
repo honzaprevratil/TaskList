@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskList.Pages.TodayTasks"
+             Title="Today Tasks">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*" />
+                    <RowDefinition Height="0.7*" />
+                    <RowDefinition Height="0.7*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.5*" />
+                </Grid.ColumnDefinitions>
+                <Label Margin="10,10,0,0" Text="Today progress" Font="Bold,30" TextColor="Black" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"/>
+                
+                <Label Margin="10,0,0,0" Text="Hours spent: " FontSize="Medium" Grid.Row="1" Grid.Column="0" />
+                <Label Margin="0" Text="3 / 10" FontSize="Medium" Grid.Row="1" Grid.Column="1" />
+
+                <Label Margin="10,0,0,0" Text="Hours to do: " FontSize="Medium" Grid.Row="1" Grid.Column="2" />
+                <Label Margin="0" Text="7 / 10" FontSize="Medium" Grid.Row="1" Grid.Column="3" />
+
+                <Label Margin="10,0,0,0" Text="Tasks done: " FontSize="Medium" Grid.Row="2" Grid.Column="0" />
+                <Label Margin="0" Text="2 / 7" FontSize="Medium" Grid.Row="2" Grid.Column="1" />
+
+                <Label Margin="10,0,0,0" Text="Taks to do: " FontSize="Medium" Grid.Row="2" Grid.Column="2" />
+                <Label Margin="0" Text="3 / 5" FontSize="Medium" Grid.Row="2" Grid.Column="3" />
+            </Grid>
+            <Label Text="TodayTasks"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            
+            <ListView x:Name="GroupedView"
+		         GroupDisplayBinding="{Binding Name}"
+		         GroupShortNameBinding="{Binding ShortName}"
+		         IsGroupingEnabled="true">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical" HeightRequest="80">
+                                <StackLayout Orientation="Horizontal">
+                                    <Switch IsToggled="{Binding Done}" />
+                                    <Label Text="{Binding Name}" />
+                                </StackLayout>
+                                <Label Text="{Binding Description}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Name}"
+					        Detail="{Binding Description}"
+					        TextColor="#f35e20"
+					        DetailColor="#503026" />
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+		    </ListView>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
