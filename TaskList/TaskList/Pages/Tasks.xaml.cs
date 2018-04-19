@@ -11,10 +11,13 @@ namespace TaskList.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Tasks : ContentPage
-	{
-		public Tasks ()
+    {
+        public TasksVM TasksVM = new TasksVM();
+
+        public Tasks ()
 		{
 			InitializeComponent ();
-		}
-	}
+            this.BindingContext = TasksVM;
+        }
+    }
 }

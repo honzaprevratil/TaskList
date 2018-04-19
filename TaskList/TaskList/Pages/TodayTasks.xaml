@@ -4,91 +4,133 @@
              x:Class="TaskList.Pages.TodayTasks"
              Title="Today Tasks">
     <ContentPage.Content>
-        <StackLayout>
+        <ScrollView>
+            <StackLayout VerticalOptions="Start">
 
-            <Frame 
-                CornerRadius="10"  
-                Padding="10"
-                BackgroundColor="#EEEEEE"
-                Margin="10,10,10,0">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1.5*" />
-                        <RowDefinition Height="0.7*" />
-                        <RowDefinition Height="0.7*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="0.5*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="0.5*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Margin="10,0,0,0" Text="Today progress" Font="Bold,30" TextColor="Black" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"/>
+                <Frame 
+                    CornerRadius="10"  
+                    Padding="10"
+                    BackgroundColor="#EEEEEE"
+                    Margin="10,10,10,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="0.5*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="0.5*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Today progress" FontSize="Large" FontAttributes="Bold"  TextColor="Black" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"/>
 
-                    <Label Margin="10,0,0,0" Text="Hours spent: " FontSize="Medium" Grid.Row="1" Grid.Column="0" />
-                    <Label Margin="0" Text="3 / 10" FontSize="Medium" Grid.Row="1" Grid.Column="1" />
+                        <Label Text="Hours spent: " FontSize="Small" Grid.Row="1" Grid.Column="0" />
+                        <Label Margin="0" Text="3 / 10" FontSize="Small" Grid.Row="1" Grid.Column="1" />
 
-                    <Label Margin="10,0,0,0" Text="Hours to do: " FontSize="Medium" Grid.Row="1" Grid.Column="2" />
-                    <Label Margin="0" Text="7 / 10" FontSize="Medium" Grid.Row="1" Grid.Column="3" />
+                        <Label Text="Hours to do: " FontSize="Small" Grid.Row="1" Grid.Column="2" />
+                        <Label Margin="0" Text="7 / 10" FontSize="Small" Grid.Row="1" Grid.Column="3" />
 
-                    <Label Margin="10,0,0,0" Text="Tasks done: " FontSize="Medium" Grid.Row="2" Grid.Column="0" />
-                    <Label Margin="0" Text="2 / 7" FontSize="Medium" Grid.Row="2" Grid.Column="1" />
+                        <Label Text="Tasks done: " FontSize="Small" Grid.Row="2" Grid.Column="0" />
+                        <Label Margin="0" Text="2 / 7" FontSize="Small" Grid.Row="2" Grid.Column="1" />
 
-                    <Label Margin="10,0,0,0" Text="Taks to do: " FontSize="Medium" Grid.Row="2" Grid.Column="2" />
-                    <Label Margin="0" Text="3 / 5" FontSize="Medium" Grid.Row="2" Grid.Column="3" />
-                </Grid>
-            </Frame>
+                        <Label Text="Taks to do: " FontSize="Small" Grid.Row="2" Grid.Column="2" />
+                        <Label Margin="0" Text="3 / 5" FontSize="Small" Grid.Row="2" Grid.Column="3" />
+                    </Grid>
+                </Frame>
 
-            <ListView x:Name="GroupedView"
-                 HasUnevenRows="true"
-                 SeparatorVisibility="None"
-		         GroupDisplayBinding="{Binding Name}"
-		         GroupShortNameBinding="{Binding ShortName}"
-		         IsGroupingEnabled="true">
-                
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Frame CornerRadius="10"  
-                               Padding="10"
-                               Margin="10,4">
-                                <StackLayout Orientation="Horizontal">
-                                    
-                                    <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
-                                        <Label Text="{Binding Name}" FontSize="Large" TextColor="#212121" />
-                                        <Label FontSize="Medium" Text="{Binding Description}" />
-                                    </StackLayout>
-                                    
-                                    <StackLayout Orientation="Vertical" HorizontalOptions="End">
-                                        <Label Text="{Binding Deadline, StringFormat='{0:dd.MM.yyyy}'}" FontSize="Medium" />
-                                        <Switch HorizontalOptions="EndAndExpand" IsToggled="{Binding Done}" />
-                                    </StackLayout>
-                                    
-                                </StackLayout>
-                            </Frame>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                
-                <ListView.GroupHeaderTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Frame CornerRadius="10"  
-                               BackgroundColor="{Binding HexColor}"
-                               Padding="10"
-                               Margin="10,16,10,4">
-                                <StackLayout Orientation="Vertical">
+                <ListView 
+                    ItemsSource="{Binding UntagedTasksList}"
+                    HeightRequest="{Binding TaskListHeight}"
+                    VerticalOptions="StartAndExpand"
+                    HasUnevenRows="true"
+                    SeparatorVisibility="None">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell Height="90">
+                                <Frame
+                                    BackgroundColor="{Binding HexColor}"
+                                    CornerRadius="10"  
+                                    Padding="10"
+                                    Margin="10,4">
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" FontSize="28" FontAttributes="Bold" />
-                                        <Switch HorizontalOptions="EndAndExpand"/>
+
+                                        <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
+                                            <Label Text="{Binding Name}" FontSize="Large" TextColor="#212121" />
+                                            <Label FontSize="Medium" Text="{Binding Description}" />
+                                        </StackLayout>
+
+                                        <StackLayout Orientation="Vertical" HorizontalOptions="End">
+                                            <Label Text="{Binding Deadline, StringFormat='{0:dd.MM.yyyy}'}" FontSize="Medium" />
+                                            <Switch HorizontalOptions="EndAndExpand" IsToggled="{Binding Done}" />
+                                        </StackLayout>
+
                                     </StackLayout>
-                                </StackLayout>
-                            </Frame>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.GroupHeaderTemplate>
-		    </ListView>
-            
-        </StackLayout>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                
+                
+                <ListView 
+                    ItemsSource="{Binding ProjectsList}"
+                    HeightRequest="{Binding ProjectsListHeight }"
+                    VerticalOptions="StartAndExpand"
+                    HasUnevenRows="true"
+                    SeparatorVisibility="None"
+		            GroupDisplayBinding="{Binding Name}"
+		            GroupShortNameBinding="{Binding ShortName}"
+		            IsGroupingEnabled="true">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell Height="90">
+                                <Frame
+                                        CornerRadius="10"  
+                                        Padding="10"
+                                        Margin="10,4">
+                                    <StackLayout Orientation="Horizontal">
+
+                                        <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
+                                            <Label Text="{Binding Name}" FontSize="Large" TextColor="#212121" />
+                                            <Label FontSize="Medium" Text="{Binding Description}" />
+                                        </StackLayout>
+
+                                        <StackLayout Orientation="Vertical" HorizontalOptions="End">
+                                            <Label Text="{Binding Deadline, StringFormat='{0:dd.MM.yyyy}'}" FontSize="Medium" />
+                                            <Switch HorizontalOptions="EndAndExpand" IsToggled="{Binding Done}" />
+                                        </StackLayout>
+
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <ListView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <ViewCell Height="70">
+                                <Frame
+                                        CornerRadius="10"  
+                                        BackgroundColor="{Binding HexColor}"
+                                        Padding="10"
+                                        Margin="10,8,10,4">
+                                    <StackLayout Orientation="Vertical">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" FontSize="28" FontAttributes="Bold" />
+                                            <Switch HorizontalOptions="EndAndExpand"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.GroupHeaderTemplate>
+                </ListView>
+
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

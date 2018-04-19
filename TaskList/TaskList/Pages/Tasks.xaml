@@ -5,13 +5,48 @@
              Title="Tasks">
     <ContentPage.Content>
         <AbsoluteLayout>
-            <Label Text="I'm bottom center on every device. dwa daw daw dawd awd wda wda wd daw daw dawd aw awd awd awd adasd asda dwdawd sdv dxv dfberv exv"
-                AbsoluteLayout.LayoutBounds="0,0,1,1"
-                AbsoluteLayout.LayoutFlags="All"
-                LineBreakMode="WordWrap"  />
-            <BoxView Color="Olive" Margin="0,0,20,20"
-                AbsoluteLayout.LayoutBounds="1,1, 115, 115"
-                AbsoluteLayout.LayoutFlags="PositionProportional" />
+            <ListView 
+                    ItemsSource="{Binding UntagedTasksList}"
+                    HeightRequest="{Binding TaskListHeight}"
+                    VerticalOptions="StartAndExpand"
+                    HasUnevenRows="true"
+                    SeparatorVisibility="None"
+                    AbsoluteLayout.LayoutBounds="0,0,1,1"
+                    AbsoluteLayout.LayoutFlags="All">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="90">
+                            <Frame
+                                BackgroundColor="{Binding HexColor}"
+                                CornerRadius="10"  
+                                Padding="10"
+                                Margin="10,4">
+                                <StackLayout Orientation="Horizontal">
+
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
+                                        <Label Text="{Binding Name}" FontSize="Large" TextColor="#212121" />
+                                        <Label FontSize="Medium" Text="{Binding Description}" />
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="End">
+                                        <Label Text="{Binding Deadline, StringFormat='{0:dd.MM.yyyy}'}" FontSize="Medium" />
+                                        <Switch HorizontalOptions="EndAndExpand" IsToggled="{Binding Done}" />
+                                    </StackLayout>
+
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <StackLayout
+                Margin="0,0,20,20"
+                AbsoluteLayout.LayoutBounds="1,1, 80, 80"
+                AbsoluteLayout.LayoutFlags="PositionProportional">
+                <Image Source="add.png"></Image>
+            </StackLayout>
+
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
