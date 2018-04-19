@@ -4,10 +4,14 @@
              x:Class="TaskList.Pages.Tasks"
              Title="Tasks">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Tasks"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <AbsoluteLayout>
+            <Label Text="I'm bottom center on every device. dwa daw daw dawd awd wda wda wd daw daw dawd aw awd awd awd adasd asda dwdawd sdv dxv dfberv exv"
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                LineBreakMode="WordWrap"  />
+            <BoxView Color="Olive" Margin="0,0,20,20"
+                AbsoluteLayout.LayoutBounds="1,1, 115, 115"
+                AbsoluteLayout.LayoutFlags="PositionProportional" />
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

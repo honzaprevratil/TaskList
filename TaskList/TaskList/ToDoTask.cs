@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TaskList
 {
-    public class Task
+    public class ToDoTask
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -14,12 +14,13 @@ namespace TaskList
         public string HexColor { get; set; }
         public bool Done { get; set; }
 
-        public Task(string name, string description, string hexColor, bool done)
+        public ToDoTask(string name, string description, string hexColor, bool done, DateTime deadLine)
         {
             Name = name;
             Description = description;
             HexColor = hexColor;
             Done = done;
+            Deadline = deadLine;
         }
     }
 }
