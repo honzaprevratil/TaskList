@@ -12,11 +12,12 @@ namespace TaskList.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TodayTasks : ContentPage
 	{
+        public TodayTasksVM TodayTasksVM = new TodayTasksVM();
+
 		public TodayTasks ()
 		{
 			InitializeComponent ();
-            GroupedView.ItemsSource = Project.All;
-
+            this.BindingContext = TodayTasksVM;
         }
 	}
 }

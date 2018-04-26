@@ -7,6 +7,14 @@
             <Color x:Key="lightBlue">#3ec2f4</Color>
             <Color x:Key="lightGreen">#4dd08a</Color>
             <Color x:Key="Teal">#68cdbf</Color>
+            
+            <!-- Task colors -->
+            <Color x:Key="ultraLightYellow">#fff7b5</Color>
+            <Color x:Key="ultraLightGreen">#b6ffb4</Color>
+            <Color x:Key="ultraLightTeal">#b3ffed</Color>
+            <Color x:Key="ultraLightBlue">#b4b3ff</Color>
+            <Color x:Key="ultraLightPink">#ffb3fd</Color>
+            <Color x:Key="ultraLightRed">#ffb3b3</Color>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
