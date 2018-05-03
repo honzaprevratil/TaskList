@@ -20,6 +20,9 @@ namespace TaskList
                 new ToDoTask("Ben", "Chocolate bars", "#ffb3b3", true, new DateTime(2018,8,5)),
                 new ToDoTask("Celer", "Spruce sauce", "#b6ffb4", false, new DateTime(2018,5,29)),
                 new ToDoTask("Cicka", "Pine apple", "#b3ffed", false, new DateTime(2018,7,8)),
+                new ToDoTask("Cicka", "Pine apple", "#b3ffed", false, new DateTime(2018,7,8)),
+                new ToDoTask("Cicka", "Pine apple", "#b3ffed", false, new DateTime(2018,7,8)),
+                new ToDoTask("Cicka", "Pine apple", "#b3ffed", false, new DateTime(2018,7,8)),
                 new ToDoTask("Capr", "Maple cake", "#fff7b5", true, new DateTime(2018,6,1))
             };
             TaskListHeight = UntagedTasksList.Count * 90;

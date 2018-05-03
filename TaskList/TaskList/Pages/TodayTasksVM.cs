@@ -17,20 +17,9 @@ namespace TaskList
         public List<ToDoTask> UntagedTasksList { get; set; }
         public int TaskListHeight { get; set; }
 
-        private int _numberOfClicks = 1;
-        public int NumberOfClicks
-        {
-            get => _numberOfClicks;
-            set
-            {
-                _numberOfClicks = value;
-                OnPropertyChanged("NumberOfClicks");
-            }
-        }
-
         private int _projectsListHeight;
         public int ProjectsListHeight
-    {
+        {
             get => _projectsListHeight;
             set
             {
@@ -38,16 +27,9 @@ namespace TaskList
                 OnPropertyChanged("ProjectsListHeight");
             }
         }
-        // Command
-        public RelayCommand ClickCommand { get; }
-
-        // Command s parametrem
+        // Command with parameter
         public RelayCommand<Project> GroupClicked { get; }
-
-        private void ClickMethod()
-        {
-            NumberOfClicks++;
-        }
+        
         private void GroupClickedMethod(Project project)
         {
             int selectedIndex = ExpandedGroups.IndexOf(project);
@@ -92,9 +74,7 @@ namespace TaskList
 
         public TodayTasksVM()
         {
-            ClickCommand = new RelayCommand(ClickMethod);
             GroupClicked = new RelayCommand<Project>(GroupClickedMethod);
-            NumberOfClicks = 0;
 
             _allGroups = new List<Project> {
                 new Project ("Alfa", "A", "#4dd08a") {

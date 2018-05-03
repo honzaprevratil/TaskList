@@ -22,7 +22,16 @@
     <item name="windowActionModeOverlay">true</item>
 
     <item name="android:datePickerDialogTheme">@style/AppCompatDialogStyle</item>
+    
+    <item name="android:buttonStyle">@style/NoShadowButton</item>
+    <!-- Removes shaddow from andoind button-->
+
   </style>
+  
+  <style name="NoShadowButton" parent="android:style/Widget.Button">
+    <item name="android:stateListAnimator">@null</item>
+  </style>
+  <!-- Removes shaddow from andoind button-->
 
   <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
     <item name="colorAccent">#9E9E9E</item>

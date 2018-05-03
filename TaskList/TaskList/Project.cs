@@ -8,22 +8,17 @@ namespace TaskList
 {
     public class Project : ObservableCollection<ToDoTask>, INotifyPropertyChanged
     {
-        private bool _expanded;
-
-        new public event PropertyChangedEventHandler PropertyChanged;
-
         public string Name { get; set; }
         public string ShortName { get; set; } //will be used for jump lists
         public string Description { get; set; }
         public string HexColor { get; set; }
-        public bool Done { get; set; }
 
-        public string TitleWithItemCount
+        private bool _expanded = false;
+        private string _imageSource = "down_arrow.png";
+
+        public string ImageSource
         {
-            get
-            {
-                return string.Format("{0} ({1})", Name, this.Items.Count);
-            }
+            get { return _imageSource; }
         }
 
         public bool Expanded
@@ -35,14 +30,14 @@ namespace TaskList
                 {
                     _expanded = value;
                     OnPropertyChanged("Expanded");
-                    OnPropertyChanged("Expanded");
+                    
+                    if (_expanded)
+                        _imageSource = "up_arrow.png";
+                    else
+                        _imageSource = "down_arrow.png";
+                    OnPropertyChanged("ImageSource");
                 }
             }
-        }
-
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         public Project(string name, string shortName, string hexColor)
@@ -50,6 +45,12 @@ namespace TaskList
             Name = name;
             ShortName = shortName;
             HexColor = hexColor;
+        }
+
+        new public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             x:Class="TaskList.Pages.AddTask">
+    <ContentPage.Content>
+        <StackLayout Margin="20" VerticalOptions="StartAndExpand">
+            <Label Text="Task Name" />
+            <Entry Text="{Binding Name}" />
+            
+            <Label Text="Task Description" Margin="0,15,0,0"/>
+            <Editor Text="{Binding Text}" HeightRequest="111"/>
+
+            <StackLayout Orientation="Horizontal" Margin="0,15,0,0">
+                <Label Text="Done"/>
+                <Switch Margin="10,0,0,0" HorizontalOptions="End" IsToggled="{Binding Done}" />
+            </StackLayout>
+
+            <Label Text="Start date" Margin="0,15,0,0"/>
+            <DatePicker Date="{x:Static sys:DateTime.Now}">
+                <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                <DatePicker.MinimumDate>
+                    <sys:DateTime x:FactoryMethod="Parse">
+                        <x:Arguments>
+                            <x:String>Jan 1 2000</x:String>
+                        </x:Arguments>
+                    </sys:DateTime>
+                </DatePicker.MinimumDate>
+                <DatePicker.MaximumDate>
+                    <sys:DateTime x:FactoryMethod="Parse">
+                        <x:Arguments>
+                            <x:String>Dec 31 2050</x:String>
+                        </x:Arguments>
+                    </sys:DateTime>
+                </DatePicker.MaximumDate>
+            </DatePicker>
+
+            <Label Text="Deadline" Margin="0,15,0,0"/>
+            <DatePicker Date="{x:Static sys:DateTime.Now}">
+                <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                <DatePicker.MinimumDate>
+                    <sys:DateTime x:FactoryMethod="Parse">
+                        <x:Arguments>
+                            <x:String>Jan 1 2000</x:String>
+                        </x:Arguments>
+                    </sys:DateTime>
+                </DatePicker.MinimumDate>
+                <DatePicker.MaximumDate>
+                    <sys:DateTime x:FactoryMethod="Parse">
+                        <x:Arguments>
+                            <x:String>Dec 31 2050</x:String>
+                        </x:Arguments>
+                    </sys:DateTime>
+                </DatePicker.MaximumDate>
+            </DatePicker>
+
+            <Label Text="Asign to project" Margin="0,15,0,0"/>
+            <Picker>
+                <Picker.Items>
+                    <x:String>1</x:String>
+                    <x:String>2</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label Text="Estimated time" Margin="0,15,0,0"/>
+            <Slider Maximum="72" />
+
+            <Label Text="Task Color" Margin="0,15,0,0"/>
+            <ListView Margin="10, 0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <BoxView Color="{Binding FavoriteColor}" />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

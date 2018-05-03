@@ -113,8 +113,7 @@
 
                     <ListView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <local:ViewCellEx Height="70">
-                                <!-- local:ViewCellEx -->
+                            <ViewCell Height="70">
                                 <Frame
                                     CornerRadius="10"  
                                     BackgroundColor="{Binding HexColor}"
@@ -123,12 +122,11 @@
                                     <StackLayout Orientation="Vertical">
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" FontSize="28" FontAttributes="Bold" />
-                                            <Button Text="{Binding Name}" Command="{Binding Path=BindingContext. GroupClicked, Source={x:Reference Name=MyPageTodayTasks}}" CommandParameter="{Binding}" />
-                                            <Switch HorizontalOptions="EndAndExpand"/>
+                                            <Button Image="{Binding ImageSource}" Opacity="0.5" BackgroundColor="#00000000" HeightRequest="40"  WidthRequest="40" HorizontalOptions="End" Command="{Binding Path=BindingContext. GroupClicked, Source={x:Reference Name=MyPageTodayTasks}}" CommandParameter="{Binding}" />
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>
-                            </local:ViewCellEx>
+                            </ViewCell>
                         </DataTemplate>
                     </ListView.GroupHeaderTemplate>
                 </ListView>
