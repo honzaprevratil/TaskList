@@ -9,17 +9,17 @@ using Xamarin.Forms.Xaml;
 
 namespace TaskList.Pages
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class Tasks : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class Tasks : ContentPage
     {
         public TasksVM TasksVM = new TasksVM();
 
-        public Tasks ()
-		{
-			InitializeComponent ();
+        public Tasks()
+        {
+            InitializeComponent();
             this.BindingContext = TasksVM;
         }
-        async void AddTaskClick (object sender, EventArgs e)
+        async void AddTaskClick(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new AddTask
             {

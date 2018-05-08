@@ -9,12 +9,15 @@ using Xamarin.Forms.Xaml;
 
 namespace TaskList.Pages
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class AddTask : ContentPage
-	{
-		public AddTask ()
-		{
-			InitializeComponent ();
-		}
-	}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class AddTask : ContentPage
+    {
+        public AddTaskVM AddTaskVM = new AddTaskVM();
+
+        public AddTask()
+        {
+            InitializeComponent();
+            this.BindingContext = AddTaskVM;
+        }
+    }
 }

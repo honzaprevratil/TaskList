@@ -16,6 +16,12 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell Height="90">
+                            <ViewCell.ContextActions>
+                                <MenuItem CommandParameter="{Binding .}"
+                                    Text="More" />
+                                <MenuItem CommandParameter="{Binding .}"
+                                    Text="Delete" IsDestructive="True" />
+                            </ViewCell.ContextActions>
                             <Frame
                                 BackgroundColor="{Binding HexColor}"
                                 CornerRadius="10"  
@@ -40,12 +46,14 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <StackLayout
-                Margin="0,0,20,20"
-                AbsoluteLayout.LayoutBounds="1,1, 90, 90"
+            <Frame
+                CornerRadius="34"  
+                Padding="0"
+                Margin="0,0,10,10"
+                AbsoluteLayout.LayoutBounds="1,1, 77, 77"
                 AbsoluteLayout.LayoutFlags="PositionProportional">
-                <Button Image="plus.png" BackgroundColor="#00000000" BorderWidth="0" Clicked="AddTaskClick"/>
-            </StackLayout>
+                <Button Image="plus.png" Margin="0" BackgroundColor="#00000000" BorderWidth="0" Clicked="AddTaskClick"/>
+            </Frame>
 
         </AbsoluteLayout>
     </ContentPage.Content>
