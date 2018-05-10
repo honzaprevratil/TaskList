@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             x:Class="TaskList.TaskDetail">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+
+            <Frame
+                BackgroundColor="{Binding HexColor}"
+                CornerRadius="10"  
+                Padding="10"
+                Margin="10,4"
+                VerticalOptions="StartAndExpand"
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All">
+                <ScrollView
+                    VerticalOptions="StartAndExpand">
+                    <StackLayout>
+                        <StackLayout Orientation="Vertical">
+                            <Label Text="Task Name" TextColor="Black" FontSize="40" />
+                            <Switch HorizontalOptions="End" IsToggled="{Binding Done}" />
+                        </StackLayout>
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="0.8*" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label Text="Progress" FontSize="30" FontAttributes="Bold"  TextColor="#333333" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                            <Label Text="Start Date:" FontSize="Large" Grid.Row="1" Grid.Column="0" />
+                            <Label Margin="0" Text="21.03.2018" FontSize="Large" Grid.Row="1" Grid.Column="1" />
+
+                            <Label Text="Deadline:" FontSize="Large" Grid.Row="2" Grid.Column="0" />
+                            <Label Margin="0" Text="21.03.2018" FontSize="Large" Grid.Row="2" Grid.Column="1" />
+
+                            <Label Text="Estimated time:" FontSize="Large" Grid.Row="3" Grid.Column="0" />
+                            <Label Margin="0" Text="2 hours" FontSize="Large" Grid.Row="3" Grid.Column="1" />
+
+                            <Label Text="In project: " FontSize="Large" Grid.Row="4" Grid.Column="0" />
+                            <Label Margin="0" Text="No project" FontSize="Large" Grid.Row="4" Grid.Column="1" />
+                        </Grid>
+
+                        <Label LineBreakMode="WordWrap" FontSize="Large" Margin="0,20,0,0">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquet pharetra magna sed iaculis. Sed eget dolor orci. Aliquam euismod vulputate magna, a semper ante tempor a. Sed sit amet urna efficitur, sodales orci quis, bibendum diam. Pellentesque vel lacinia ante. Aliquam gravida consequat velit, a blandit tellus cursus vitae. Proin nec urna id lectus varius vehicula eget et mauris. Vivamus condimentum et risus ut commodo. Aenean semper augue sed justo feugiat efficitur. Sed a scelerisque leo, non molestie purus.
+                        </Label>
+                        <StackLayout Margin="0,80,0,0"></StackLayout>
+                    
+                    </StackLayout>
+                </ScrollView>
+            </Frame>
+
+            <Frame
+                CornerRadius="34"  
+                Padding="0"
+                Margin="0,0,10,10"
+                AbsoluteLayout.LayoutBounds="1,1, 77, 77"
+                AbsoluteLayout.LayoutFlags="PositionProportional">
+                <Button Image="checked.png" BackgroundColor="#00000000" BorderWidth="0" Margin="0"/>
+            </Frame>
+
+            <Frame
+                CornerRadius="34"  
+                Padding="0"
+                Margin="0,0,90,10"
+                AbsoluteLayout.LayoutBounds="1,1, 167, 77"
+                AbsoluteLayout.LayoutFlags="PositionProportional">
+                <Button Image="trash.png" BackgroundColor="#00000000" BorderWidth="0" Margin="0"/>
+            </Frame>
+
+            <Frame
+                CornerRadius="34"  
+                Padding="0"
+                Margin="10,0,0,10"
+                AbsoluteLayout.LayoutBounds="0,1, 77, 77"
+                AbsoluteLayout.LayoutFlags="PositionProportional">
+                <Button Image="cancel.png" BackgroundColor="#00000000" BorderWidth="0" Margin="0"/>
+            </Frame>
+            
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

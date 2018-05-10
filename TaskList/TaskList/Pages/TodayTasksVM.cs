@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace TaskList
 {
-    public class TodayTasksVM : INotifyPropertyChanged
+    public class TodayTasksVM : MyVM
     {
         private List<Project> _allGroups { set; get; }
 
@@ -99,12 +99,6 @@ namespace TaskList
 
             TaskListHeight = UntagedTasksList.Count * 90;
             UpdateListContent();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

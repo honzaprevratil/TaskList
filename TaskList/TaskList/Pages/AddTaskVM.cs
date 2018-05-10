@@ -2,12 +2,23 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TaskList.Pages
+namespace TaskList
 {
-    public class AddTaskVM
+    public class AddTaskVM : MyVM
     {
         public List<Color> Colors { get; set; }
         public int ColorsListHeight { get; set; }
+
+        private double _estimatedTime = 1;
+        public double EstimatedTime
+        {
+            get => Math.Round(_estimatedTime, 0);
+            set
+            {
+                _estimatedTime = value;
+                OnPropertyChanged("EstimatedTime");
+            }
+        }
 
         public AddTaskVM()
         {
