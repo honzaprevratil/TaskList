@@ -19,5 +19,9 @@ namespace TaskList.Pages
             InitializeComponent();
             this.BindingContext = AddTaskVM;
         }
+        async void GoBackClick(object sender, EventArgs e)
+        {
+            await Navigation.PopModalAsync();
+        }
     }
 }

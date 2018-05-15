@@ -26,5 +26,12 @@ namespace TaskList.Pages
                 //BindingContext = new TodoItem()
             });
         }
+        async void ShowTaskClick(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new AddTask
+            {
+                //BindingContext = new TodoItem()
+            });
+        }
     }
 }

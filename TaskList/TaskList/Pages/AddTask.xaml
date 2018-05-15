@@ -129,7 +129,7 @@
                 Margin="10,0,0,10"
                 AbsoluteLayout.LayoutBounds="0,1, 77, 77"
                 AbsoluteLayout.LayoutFlags="PositionProportional">
-                <Button Image="cancel.png" BackgroundColor="#00000000" BorderWidth="0" Margin="0"/>
+                <Button Image="cancel.png" Clicked="GoBackClick" BackgroundColor="#00000000" BorderWidth="0" Margin="0"/>
             </Frame>
             
         </AbsoluteLayout>
