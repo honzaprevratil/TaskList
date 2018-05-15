@@ -12,12 +12,20 @@ namespace TaskList
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TaskDetail : ContentPage
     {
-        public AddTaskVM AddTaskVM = new AddTaskVM();
-
         public TaskDetail()
         {
             InitializeComponent();
-            this.BindingContext = AddTaskVM;
+        }
+        async void GoBackClick(object sender, EventArgs e)
+        {
+            await Navigation.PopModalAsync();
+        }
+        async void EditTaskClick(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new AddTask
+            {
+                BindingContext = this.BindingContext
+            });
         }
     }
 }

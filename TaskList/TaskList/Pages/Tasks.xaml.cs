@@ -30,9 +30,8 @@ namespace TaskList.Pages
         {
             await Navigation.PushModalAsync(new TaskDetail
             {
-                //BindingContext = new TodoItem()
+                BindingContext = TasksVM.SelectedTask
             });
-            //DisplayAlert("ItemSelected", e.SelectedItem.ToString(), "Ok");
         }
     }
 }
