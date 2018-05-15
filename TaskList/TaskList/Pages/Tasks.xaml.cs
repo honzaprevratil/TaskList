@@ -26,12 +26,13 @@ namespace TaskList.Pages
                 //BindingContext = new TodoItem()
             });
         }
-        async void ShowTaskClick(object sender, EventArgs e)
+        async void TaskClicked(object sender, SelectedItemChangedEventArgs e)
         {
-            await Navigation.PushModalAsync(new AddTask
+            await Navigation.PushModalAsync(new TaskDetail
             {
                 //BindingContext = new TodoItem()
             });
+            //DisplayAlert("ItemSelected", e.SelectedItem.ToString(), "Ok");
         }
     }
 }

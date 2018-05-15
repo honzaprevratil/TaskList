@@ -8,6 +8,7 @@
             <ListView 
                     ItemsSource="{Binding UntagedTasksList}"
                     HeightRequest="{Binding TaskListHeight}"
+                    ItemTapped="TaskClicked"
                     VerticalOptions="StartAndExpand"
                     HasUnevenRows="true"
                     SeparatorVisibility="None"

@@ -10,18 +10,14 @@ using Xamarin.Forms.Xaml;
 namespace TaskList
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AddTask : ContentPage
+    public partial class TaskDetail : ContentPage
     {
         public AddTaskVM AddTaskVM = new AddTaskVM();
 
-        public AddTask()
+        public TaskDetail()
         {
             InitializeComponent();
             this.BindingContext = AddTaskVM;
-        }
-        async void GoBackClick(object sender, EventArgs e)
-        {
-            await Navigation.PopModalAsync();
         }
     }
 }
