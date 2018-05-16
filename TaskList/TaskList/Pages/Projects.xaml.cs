@@ -12,9 +12,33 @@ namespace TaskList.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Projects : ContentPage
 	{
-		public Projects ()
-		{
-			InitializeComponent ();
-		}
-	}
+        public ProjectsVM ProjectsVM = new ProjectsVM();
+
+        public Projects()
+        {
+            InitializeComponent();
+            this.BindingContext = ProjectsVM;
+        }
+        async void AddProjectClick(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new AddTask
+            {
+                //BindingContext = new TodoItem()
+            });
+        }
+        async void TaskClicked(object sender, SelectedItemChangedEventArgs e)
+        {
+            await Navigation.PushModalAsync(new TaskDetail
+            {
+                BindingContext = ProjectsVM.SelectedTask
+            });
+        }
+        async void EditProjectClick(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new AddTask
+            {
+                BindingContext = ProjectsVM.LastOpened
+            });
+        }
+    }
 }

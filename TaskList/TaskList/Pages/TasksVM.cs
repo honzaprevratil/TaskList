@@ -36,7 +36,7 @@ namespace TaskList
                 new ToDoTask("Cicka", "Pine apple", "#b3ffed", false, new DateTime(2018,7,8)),
                 new ToDoTask("Capr", "Maple cake", "#fff7b5", true, new DateTime(2018,6,1))
             };
-            TaskListHeight = UntagedTasksList.Count * 90;
+            TaskListHeight = UntagedTasksList.Count * 90 + 90;
         }
     }
 }

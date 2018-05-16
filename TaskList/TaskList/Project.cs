@@ -40,11 +40,12 @@ namespace TaskList
             }
         }
 
-        public Project(string name, string shortName, string hexColor)
+        public Project(string name, string shortName, string hexColor, string description)
         {
             Name = name;
             ShortName = shortName;
             HexColor = hexColor;
+            Description = description;
         }
 
         new public event PropertyChangedEventHandler PropertyChanged;
