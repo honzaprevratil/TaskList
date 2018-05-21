@@ -46,14 +46,13 @@ namespace TaskList
                 OnPropertyChanged("SelectedTask");
             }
         }
-        private Project _lastOpened = null;
-        public Project LastOpened
+        private List<Project> _lastOpened = new List<Project>();
+        public List<Project> LastOpened
         {
             get => _lastOpened;
             set
             {
                 _lastOpened = value;
-                OnPropertyChanged("LastOpened");
             }
         }
         // Command with parameter
@@ -62,8 +61,15 @@ namespace TaskList
         private void GroupClickedMethod(Project project)
         {
             int selectedIndex = ExpandedGroups.IndexOf(project);
+
             _allGroups[selectedIndex].Expanded = !(_allGroups[selectedIndex].Expanded);
-            LastOpened = _allGroups[selectedIndex];
+
+            if (_allGroups[selectedIndex].Expanded)
+                LastOpened.Add(_allGroups[selectedIndex]);
+            else
+                if (LastOpened.Count > 0)
+                    LastOpened.RemoveAt(LastOpened.Count-1);
+
             UpdateListContent();
         }
 

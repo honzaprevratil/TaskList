@@ -23,7 +23,7 @@ namespace TaskList.Pages
         {
             await Navigation.PushModalAsync(new AddTask
             {
-                //BindingContext = new TodoItem()
+                BindingContext = new ToDoTask()
             });
         }
         async void TaskClicked(object sender, SelectedItemChangedEventArgs e)

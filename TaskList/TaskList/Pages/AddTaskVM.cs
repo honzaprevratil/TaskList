@@ -6,8 +6,11 @@ namespace TaskList
 {
     public class AddTaskVM : MyVM
     {
-        public List<Color> Colors { get; set; }
-        public int ColorsListHeight { get; set; }
+        public string Name { get; set; }
+        public string Text { get; set; }
+        public bool Done { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Today;
+        public DateTime Deadline { get; set; } = DateTime.Today;
 
         private double _estimatedTime = 1;
         public double EstimatedTime
@@ -19,6 +22,10 @@ namespace TaskList
                 OnPropertyChanged("EstimatedTime");
             }
         }
+        public List<Color> Colors { get; set; }
+        public Color SelectedColor { get; set; }
+
+        public int ColorsListHeight { get; set; }
 
         public AddTaskVM()
         {
@@ -31,6 +38,11 @@ namespace TaskList
                 new Color("Yellow","#fff7b5"),
             };
             ColorsListHeight = Colors.Count * 36 + 2;
+        }
+        public ToDoTask GetTaskToSave()
+        {
+            ToDoTask returnTask = new ToDoTask() { Name = Name, Description = Text };
+            return returnTask;
         }
     }
 }

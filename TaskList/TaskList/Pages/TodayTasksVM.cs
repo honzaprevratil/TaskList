@@ -17,6 +17,17 @@ namespace TaskList
         public List<ToDoTask> UntagedTasksList { get; set; }
         public int TaskListHeight { get; set; }
 
+        private ToDoTask _selectedTask = null;
+        public ToDoTask SelectedTask
+        {
+            get => _selectedTask;
+            set
+            {
+                _selectedTask = value;
+                OnPropertyChanged("SelectedTask");
+            }
+        }
+
         private int _projectsListHeight;
         public int ProjectsListHeight
         {

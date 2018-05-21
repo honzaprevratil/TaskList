@@ -10,23 +10,17 @@ using Xamarin.Forms.Xaml;
 namespace TaskList
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AddTask : ContentPage
+    public partial class AddProject : ContentPage
     {
-        public AddTaskVM AddTaskVM = new AddTaskVM();
+        public AddProjectVM AddProjectVM = new AddProjectVM();
 
-        public AddTask()
+        public AddProject()
         {
             InitializeComponent();
-            this.BindingContext = AddTaskVM;
+            this.BindingContext = AddProjectVM;
         }
         async void GoBackClick(object sender, EventArgs e)
         {
-            await Navigation.PopModalAsync();
-        }
-        async void SaveTask(object sender, EventArgs e)
-        {
-            ToDoTask saveMe = AddTaskVM.GetTaskToSave();
-            await App.Database.SaveItemAsync(saveMe);
             await Navigation.PopModalAsync();
         }
     }

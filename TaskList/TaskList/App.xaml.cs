@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using TaskList.DB;
 using Xamarin.Forms;
 
 namespace TaskList
@@ -28,7 +28,19 @@ namespace TaskList
 
 		protected override void OnResume ()
 		{
-			// Handle when your app resumes
-		}
-	}
+            // Handle when your app resumes
+        }
+        private static TaskDatabase _database;
+        public static TaskDatabase Database
+        {
+            get
+            {
+                if (_database == null)
+                {
+                    _database = new TaskDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("TaskDatabase.db3"));
+                }
+                return _database;
+            }
+        }
+    }
 }

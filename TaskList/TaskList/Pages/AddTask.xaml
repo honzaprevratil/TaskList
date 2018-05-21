@@ -23,7 +23,7 @@
                     <Switch HorizontalOptions="Start" IsToggled="{Binding Done}" />
 
                     <Label Text="Start date" Margin="0,15,0,0"/>
-                    <DatePicker Date="{x:Static sys:DateTime.Now}">
+                    <DatePicker Date="{Binding StartDate}">
                         <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
                         <DatePicker.MinimumDate>
                             <sys:DateTime x:FactoryMethod="Parse">
@@ -42,7 +42,7 @@
                     </DatePicker>
 
                     <Label Text="Deadline" Margin="0,15,0,0"/>
-                    <DatePicker Date="{x:Static sys:DateTime.Now}">
+                    <DatePicker Date="{Binding Deadline}">
                         <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
                         <DatePicker.MinimumDate>
                             <sys:DateTime x:FactoryMethod="Parse">
@@ -95,7 +95,6 @@
                         ItemsSource="{Binding Colors}"
                         HeightRequest="{Binding ColorsListHeight}"
                         VerticalOptions="StartAndExpand"
-                        
                         SeparatorVisibility="None">
                         
                         <ListView.ItemTemplate>
@@ -121,7 +120,7 @@
                 Margin="0,0,10,10"
                 AbsoluteLayout.LayoutBounds="1,1, 77, 77"
                 AbsoluteLayout.LayoutFlags="PositionProportional">
-                <Button Image="checked.png" BackgroundColor="#00000000" BorderWidth="0" Margin="0"/>
+                <Button Image="checked.png" Clicked="SaveTask" BackgroundColor="#00000000" BorderWidth="0" Margin="0"/>
             </Frame>
 
             <Frame

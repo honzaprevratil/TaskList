@@ -21,9 +21,9 @@ namespace TaskList.Pages
         }
         async void AddProjectClick(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new AddTask
+            await Navigation.PushModalAsync(new AddProject
             {
-                //BindingContext = new TodoItem()
+                //BindingContext = new Project()
             });
         }
         async void TaskClicked(object sender, SelectedItemChangedEventArgs e)
@@ -35,9 +35,9 @@ namespace TaskList.Pages
         }
         async void EditProjectClick(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new AddTask
+            await Navigation.PushModalAsync(new AddProject
             {
-                BindingContext = ProjectsVM.LastOpened
+                BindingContext = ProjectsVM.LastOpened[ProjectsVM.LastOpened.Count-1]
             });
         }
     }

@@ -45,6 +45,8 @@
                 <ListView 
                     ItemsSource="{Binding UntagedTasksList}"
                     HeightRequest="{Binding TaskListHeight}"
+                    SelectedItem="{Binding SelectedTask}"
+                    ItemTapped="TaskClicked"
                     VerticalOptions="StartAndExpand"
                     HasUnevenRows="true"
                     SeparatorVisibility="None">
@@ -52,12 +54,6 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell Height="90">
-                                <!-- EDIT THIS -->
-                                <ViewCell.ContextActions>
-                                    <MenuItem CommandParameter="{Binding .}" Text="Show" />
-                                    <MenuItem CommandParameter="{Binding .}" Text="Edit" />
-                                    <MenuItem CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
-                                </ViewCell.ContextActions>
                                 <Frame
                                     BackgroundColor="{Binding HexColor}"
                                     CornerRadius="10"  
@@ -85,6 +81,8 @@
                 <ListView 
                     ItemsSource="{Binding ExpandedGroups}"
                     HeightRequest="{Binding ProjectsListHeight}"
+                    SelectedItem="{Binding SelectedTask}"
+                    ItemTapped="TaskClicked"
                     VerticalOptions="StartAndExpand"
                     HasUnevenRows="true"
                     SeparatorVisibility="None"
@@ -95,13 +93,6 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell Height="90">
-                                <!-- EDIT THIS -->
-                                <ViewCell.ContextActions>
-                                    <MenuItem CommandParameter="{Binding .}" Text="Show" />
-                                    <MenuItem CommandParameter="{Binding .}" Text="Edit" />
-                                    <MenuItem CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
-                                </ViewCell.ContextActions>
-                                
                                 <Frame
                                         CornerRadius="10"  
                                         Padding="10"

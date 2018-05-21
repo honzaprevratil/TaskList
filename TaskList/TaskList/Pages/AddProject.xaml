@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             x:Class="TaskList.AddProject">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+
+            <ScrollView
+                VerticalOptions="StartAndExpand"
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All">
+                <StackLayout
+                    Margin="20">
+
+                    <Label Text="Project Name" />
+                    <Entry Text="{Binding Name}" />
+
+                    <Label Text="Project Description" Margin="0,15,0,0"/>
+                    <Editor Text="{Binding Text}" HeightRequest="111"/>
+
+                    <Label Text="Asigned Tasks" Margin="0,15,0,0"/>
+                    <ListView 
+                        ItemsSource="{Binding UntagedTasksList}"
+                        HeightRequest="{Binding TaskListHeight}"
+                        VerticalOptions="StartAndExpand"
+                        SeparatorVisibility="None">
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell Height="45">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding Name}" FontSize="Large" TextColor="#212121" />
+                                        <Switch HorizontalOptions="EndAndExpand" IsToggled="{Binding IsInProject}" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <Label Text="Task Color" Margin="0,15,0,0"/>
+                    <ListView 
+                        ItemsSource="{Binding Colors}"
+                        HeightRequest="{Binding ColorsListHeight}"
+                        VerticalOptions="StartAndExpand"
+                        SeparatorVisibility="None">
+                        
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame Margin="3" BackgroundColor="{Binding HexColor}" CornerRadius="19" Padding="15" HasShadow="False" WidthRequest="9" HeightRequest="0" />
+                                        <Label Text="{Binding Name}" Margin="5,11,0,0"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <StackLayout Margin="0,80,0,0"></StackLayout>
+                    
+                </StackLayout>
+            </ScrollView>
+
+            <Frame
+                CornerRadius="34"  
+                Padding="0"
+                Margin="0,0,10,10"
+                AbsoluteLayout.LayoutBounds="1,1, 77, 77"
+                AbsoluteLayout.LayoutFlags="PositionProportional">
+                <Button Image="checked.png" BackgroundColor="#00000000" BorderWidth="0" Margin="0"/>
+            </Frame>
+
+            <Frame
+                CornerRadius="34"  
+                Padding="0"
+                Margin="10,0,0,10"
+                AbsoluteLayout.LayoutBounds="0,1, 77, 77"
+                AbsoluteLayout.LayoutFlags="PositionProportional">
+                <Button Image="cancel.png" Clicked="GoBackClick" BackgroundColor="#00000000" BorderWidth="0" Margin="0"/>
+            </Frame>
+            
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

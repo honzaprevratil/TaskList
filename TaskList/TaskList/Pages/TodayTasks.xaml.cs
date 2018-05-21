@@ -19,5 +19,12 @@ namespace TaskList.Pages
 			InitializeComponent ();
             this.BindingContext = TodayTasksVM;
         }
-	}
+        async void TaskClicked(object sender, SelectedItemChangedEventArgs e)
+        {
+            await Navigation.PushModalAsync(new TaskDetail
+            {
+                //BindingContext = TodayTasksVM.SelectedTask
+            });
+        }
+    }
 }
