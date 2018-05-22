@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace TaskList
@@ -27,6 +28,18 @@ namespace TaskList
 
         public int ColorsListHeight { get; set; }
 
+        public void LoadTask(ToDoTask task)
+        {
+            Name = task.Name;
+            Text = task.Description;
+            Done = task.Done;
+            StartDate = DateTime.Compare(task.StartDate, DateTime.Today.AddYears(-100)) < 0 ? DateTime.Today : task.StartDate;
+            Deadline = DateTime.Compare(task.Deadline, DateTime.Today.AddYears(-100)) < 0 ? DateTime.Today : task.Deadline;
+            EstimatedTime = task.EstimatedTime;
+            var color = Colors.Where(x => x.HexColor == task.HexColor).ToList();
+            SelectedColor = color.Count == 0 ? null : color[0];
+        }
+
         public AddTaskVM()
         {
             Colors = new List<Color> {
@@ -39,10 +52,23 @@ namespace TaskList
             };
             ColorsListHeight = Colors.Count * 36 + 2;
         }
-        public ToDoTask GetTaskToSave()
+        public bool SaveTaskIfValid()
         {
-            ToDoTask returnTask = new ToDoTask() { Name = Name, Description = Text };
-            return returnTask;
+            Console.WriteLine("   ");
+            Console.WriteLine(Name);
+            Console.WriteLine(Text);
+            Console.WriteLine(new DateTime(2017, 9, 8).ToLongDateString());
+            Console.WriteLine(StartDate.ToLongDateString());
+            Console.WriteLine(Deadline.ToLongDateString());
+            Console.WriteLine("   ");
+
+            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Text) && SelectedColor != null)
+            {
+                ToDoTask returnTask = new ToDoTask(Name, Text, StartDate, Deadline, (int)EstimatedTime, SelectedColor.HexColor, Done, false);
+                App.Database.SaveItemAsync(returnTask);
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -19,15 +19,22 @@ namespace TaskList
             InitializeComponent();
             this.BindingContext = AddTaskVM;
         }
+        public AddTask(ToDoTask task)
+        {
+            InitializeComponent();
+            AddTaskVM.LoadTask(task);
+            this.BindingContext = AddTaskVM;
+        }
         async void GoBackClick(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync();
         }
         async void SaveTask(object sender, EventArgs e)
         {
-            ToDoTask saveMe = AddTaskVM.GetTaskToSave();
-            await App.Database.SaveItemAsync(saveMe);
-            await Navigation.PopModalAsync();
+            if (AddTaskVM.SaveTaskIfValid())
+            {
+                await Navigation.PopModalAsync();
+            }
         }
     }
 }

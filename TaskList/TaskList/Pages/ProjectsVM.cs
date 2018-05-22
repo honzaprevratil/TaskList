@@ -121,16 +121,14 @@ namespace TaskList
 
             _allGroups = new List<Project> {
                 new Project ("Alfa", "A", "#4dd08a", "Alfa projekt hlavního alfáka") {
-                    new ToDoTask("Amelia", "Cedar cheese", "#b4b3ff", true, new DateTime(2018,4,25)),
-                    new ToDoTask("Alfie", "Spruce sauce", "#b6ffb4", false, new DateTime(2018,5,29)),
-                    new ToDoTask("Ava", "Pine apple", "#3ec2f4", false, new DateTime(2018,7,8)),
-                    new ToDoTask("Archie", "Maple cake", "#3ec2f4", true, new DateTime(2018,6,1))
+                    new ToDoTask("Asr", "Spruce sauce", new DateTime(2018,5,29), new DateTime(2018,5,29), 5, "#b6ffb4", false, true),
+                    new ToDoTask("Amel alir", "Pine apple", new DateTime(2018,7,8), new DateTime(2018,7,8), 4, "#b3ffed", true, true),
+                    new ToDoTask("Amand", "Maple cake", new DateTime(2018,6,1), new DateTime(2018,6,1), 2, "#fff7b5", true, true)
                 },
                 new Project ("Bravo", "B", "#68cdbf", "Bingo brácho, budeš brát bravíčko.") {
-                    new ToDoTask("Brooke", "Lumia phone", "#3ec2f4", false, new DateTime(2018,8,1)),
-                    new ToDoTask("Bobby", "Xperia X7", "#fff7b5", false, new DateTime(2018,9,8)),
-                    new ToDoTask("Bella", "Desire Aspire", "#3ec2f4", false, new DateTime(2018,9,20)),
-                    new ToDoTask("Ben", "Chocolate bars", "#3ec2f4", true, new DateTime(2018,8,5))
+                    new ToDoTask("Bilk", "Yaa sauce", new DateTime(2018,5,29), new DateTime(2018,5,29), 5, "#b6ffb4", true, true),
+                    new ToDoTask("Balon", "Pine apple", new DateTime(2018,7,8), new DateTime(2018,7,8), 4, "#b3ffed", false, true),
+                    new ToDoTask("Bark", "Sik cake", new DateTime(2018,6,1), new DateTime(2018,6,1), 2, "#fff7b5", true, true)
                 }
             };
             UpdateListContent();

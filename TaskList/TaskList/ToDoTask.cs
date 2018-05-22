@@ -16,13 +16,16 @@ namespace TaskList
         public bool Done { get; set; }
         public bool IsInProject { get; set; }
 
-        public ToDoTask(string name, string description, string hexColor, bool done, DateTime deadLine)
+        public ToDoTask(string name, string description, DateTime startDate, DateTime deadLine, int estimatedTime, string hexColor, bool done, bool isInProject)
         {
             Name = name;
             Description = description;
+            StartDate = startDate;
+            Deadline = deadLine;
+            EstimatedTime = estimatedTime;
             HexColor = hexColor;
             Done = done;
-            Deadline = deadLine;
+            IsInProject = isInProject;
         }
 
         public ToDoTask() { }

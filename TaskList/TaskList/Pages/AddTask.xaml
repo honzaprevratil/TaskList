@@ -94,6 +94,7 @@
                     <ListView 
                         ItemsSource="{Binding Colors}"
                         HeightRequest="{Binding ColorsListHeight}"
+                        SelectedItem="{Binding SelectedColor}"
                         VerticalOptions="StartAndExpand"
                         SeparatorVisibility="None">
                         

@@ -21,10 +21,7 @@ namespace TaskList.Pages
         }
         async void AddTaskClick(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new AddTask
-            {
-                BindingContext = new ToDoTask()
-            });
+            await Navigation.PushModalAsync(new AddTask(new ToDoTask()));
         }
         async void TaskClicked(object sender, SelectedItemChangedEventArgs e)
         {
