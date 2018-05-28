@@ -19,9 +19,22 @@ namespace TaskList
             InitializeComponent();
             this.BindingContext = AddProjectVM;
         }
+        public AddProject(ToDoProject project)
+        {
+            InitializeComponent();
+            AddProjectVM.LoadProject(project);
+            this.BindingContext = AddProjectVM;
+        }
         async void GoBackClick(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync();
+        }
+        async void SaveProject(object sender, EventArgs e)
+        {
+            if (AddProjectVM.SaveProjectIfValid())
+            {
+                await Navigation.PopModalAsync();
+            }
         }
     }
 }

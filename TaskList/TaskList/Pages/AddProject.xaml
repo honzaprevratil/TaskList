@@ -42,6 +42,7 @@
                     <ListView 
                         ItemsSource="{Binding Colors}"
                         HeightRequest="{Binding ColorsListHeight}"
+                        SelectedItem="{Binding SelectedColor, Mode=TwoWay}"
                         VerticalOptions="StartAndExpand"
                         SeparatorVisibility="None">
                         
@@ -68,7 +69,7 @@
                 Margin="0,0,10,10"
                 AbsoluteLayout.LayoutBounds="1,1, 77, 77"
                 AbsoluteLayout.LayoutFlags="PositionProportional">
-                <Button Image="checked.png" BackgroundColor="#00000000" BorderWidth="0" Margin="0"/>
+                <Button Image="checked.png" BackgroundColor="#00000000" BorderWidth="0" Margin="0" Clicked="SaveProject"/>
             </Frame>
 
             <Frame

@@ -119,7 +119,7 @@
                 Margin="0,0,90,10"
                 AbsoluteLayout.LayoutBounds="1,1, 157, 77"
                 AbsoluteLayout.LayoutFlags="PositionProportional">
-                <Button Image="delete.png" BackgroundColor="#00000000" BorderWidth="0" Margin="0"/>
+                <Button Image="delete.png" BackgroundColor="#00000000" BorderWidth="0" Margin="0" Clicked="DeleteProjectClick"/>
             </Frame>
 
         </AbsoluteLayout>

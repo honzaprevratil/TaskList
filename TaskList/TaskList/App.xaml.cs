@@ -12,7 +12,6 @@ namespace TaskList
 		public App ()
 		{
 			InitializeComponent();
-
 			MainPage = new TaskList.MainPage();
 		}
 
@@ -37,7 +36,7 @@ namespace TaskList
             {
                 if (_database == null)
                 {
-                    _database = new TaskDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("TaskDatabase.db3"));
+                    _database = new TaskDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("TaskListDB.db3"));
                 }
                 return _database;
             }

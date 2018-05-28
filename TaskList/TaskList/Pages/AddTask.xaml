@@ -87,14 +87,14 @@
                     </Picker>
 
                     <Label Text="Estimated time" Margin="0,15,0,0"/>
-                    <Slider Maximum="50" Minimum="1" Value="{Binding EstimatedTime, Mode=OneWayToSource}" />
+                    <Slider Maximum="50" Minimum="1" Value="{Binding EstimatedTime}" />
                     <Label Text="{Binding EstimatedTime, Mode=OneWay, StringFormat='{0} hour(s)'}" HorizontalOptions="Center"/>
 
                     <Label Text="Task Color" Margin="0,15,0,0"/>
                     <ListView 
                         ItemsSource="{Binding Colors}"
                         HeightRequest="{Binding ColorsListHeight}"
-                        SelectedItem="{Binding SelectedColor}"
+                        SelectedItem="{Binding SelectedColor, Mode=TwoWay}"
                         VerticalOptions="StartAndExpand"
                         SeparatorVisibility="None">
                         

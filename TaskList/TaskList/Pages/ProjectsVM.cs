@@ -73,7 +73,7 @@ namespace TaskList
             UpdateListContent();
         }
 
-        private void UpdateListContent()
+        public void UpdateListContent()
         {
             ExpandedGroups = new ObservableCollection<Project>();
 
@@ -117,7 +117,7 @@ namespace TaskList
         
         public ProjectsVM()
         {
-           GroupClicked = new RelayCommand<Project>(GroupClickedMethod);
+            GroupClicked = new RelayCommand<Project>(GroupClickedMethod);
 
             _allGroups = new List<Project> {
                 new Project ("Alfa", "A", "#4dd08a", "Alfa projekt hlavního alfáka") {
@@ -131,7 +131,43 @@ namespace TaskList
                     new ToDoTask("Bark", "Sik cake", new DateTime(2018,6,1), new DateTime(2018,6,1), 2, "#fff7b5", true, true)
                 }
             };
+
+            GetDataFromDb();
             UpdateListContent();
+        }
+
+        public void GetDataFromDb()
+        {
+            List<ToDoProject> toDoProjectList = new List<ToDoProject>();
+            App.Database.GetItemsAsync<ToDoProject>().Result.ForEach(x => toDoProjectList.Add(x));
+            DebugUntagedTasksList(toDoProjectList);
+
+            _allGroups = new List<Project>();
+            foreach (ToDoProject todoItem in toDoProjectList)
+            {
+                _allGroups.Add(new Project(todoItem.Name, todoItem.Name[0].ToString(), todoItem.HexColor, todoItem.Description, todoItem.ID) {
+                    new ToDoTask("Bilk", "Yaa sauce", new DateTime(2018,5,29), new DateTime(2018,5,29), 5, "#b6ffb4", true, true)
+                });
+            }
+
+            ProjectsListHeight = toDoProjectList.Count * 160 + 90;
+            //OnPropertyChanged("UntagedTasksList");
+        }
+        public void DebugUntagedTasksList(List<ToDoProject> toDoProjectList)
+        {
+            Debug.WriteLine("                             ");
+            Debug.WriteLine("                             ");
+            Debug.WriteLine("                             ");
+
+            Debug.WriteLine(toDoProjectList.Count);
+            foreach (ToDoProject todoItem in toDoProjectList)
+            {
+                Debug.WriteLine(todoItem);
+            }
+
+            Debug.WriteLine("                             ");
+            Debug.WriteLine("                             ");
+            Debug.WriteLine("                             ");
         }
     }
 }

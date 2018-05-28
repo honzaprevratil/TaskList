@@ -8,6 +8,7 @@ namespace TaskList
 {
     public class Project : ObservableCollection<ToDoTask>, INotifyPropertyChanged
     {
+        public int ProjectId { get; set; }
         public string Name { get; set; }
         public string ShortName { get; set; } //will be used for jump lists
         public string Description { get; set; }
@@ -40,8 +41,9 @@ namespace TaskList
             }
         }
 
-        public Project(string name, string shortName, string hexColor, string description)
+        public Project(string name, string shortName, string hexColor, string description, int projectId = 0)
         {
+            ProjectId = projectId;
             Name = name;
             ShortName = shortName;
             HexColor = hexColor;

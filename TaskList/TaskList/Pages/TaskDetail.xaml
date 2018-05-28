@@ -27,7 +27,7 @@
                                 <ColumnDefinition Width="0.2*" />
                             </Grid.ColumnDefinitions>
                             <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold"  FontSize="40" />
-                            <Switch Grid.Column="1" HorizontalOptions="End" IsToggled="{Binding Done}" />
+                            <Switch Grid.Column="1" HorizontalOptions="End" IsToggled="{Binding Done}" Toggled="UpdateDone" />
                         </Grid>
 
                         <Grid>
@@ -78,7 +78,7 @@
                 Margin="0,0,90,10"
                 AbsoluteLayout.LayoutBounds="1,1, 157, 77"
                 AbsoluteLayout.LayoutFlags="PositionProportional">
-                <Button Image="delete.png" BackgroundColor="#00000000" BorderWidth="0" Margin="0"/>
+                <Button Image="delete.png" BackgroundColor="#00000000" BorderWidth="0" Margin="0" Clicked="DeleteClick"/>
             </Frame>
 
             <Frame

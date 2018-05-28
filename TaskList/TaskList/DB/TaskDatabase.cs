@@ -14,6 +14,7 @@ namespace TaskList.DB
         {
             database = new SQLiteAsyncConnection(dbPath);
             database.CreateTableAsync<ToDoTask>().Wait();
+            database.CreateTableAsync<ToDoProject>().Wait();
         }
 
         public Task<List<T>> GetItemsAsync<T>() where T : ATable, new()

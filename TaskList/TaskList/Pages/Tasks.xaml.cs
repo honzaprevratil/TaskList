@@ -13,11 +13,18 @@ namespace TaskList.Pages
     public partial class Tasks : ContentPage
     {
         public TasksVM TasksVM = new TasksVM();
+        bool navigationSwitch = true;
 
         public Tasks()
         {
             InitializeComponent();
             this.BindingContext = TasksVM;
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            navigationSwitch = true;
+            TasksVM.GetDataFromDb();
         }
         async void AddTaskClick(object sender, EventArgs e)
         {
@@ -25,10 +32,14 @@ namespace TaskList.Pages
         }
         async void TaskClicked(object sender, SelectedItemChangedEventArgs e)
         {
-            await Navigation.PushModalAsync(new TaskDetail
+            if (navigationSwitch)
             {
-                BindingContext = TasksVM.SelectedTask
-            });
+                navigationSwitch = false;
+                await Navigation.PushModalAsync(new TaskDetail
+                {
+                    BindingContext = TasksVM.SelectedTask
+                });
+            }
         }
     }
 }
