@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using Xamarin.Forms;
 
@@ -140,14 +141,20 @@ namespace TaskList
         {
             List<ToDoProject> toDoProjectList = new List<ToDoProject>();
             App.Database.GetItemsAsync<ToDoProject>().Result.ForEach(x => toDoProjectList.Add(x));
+
+            List<ToDoTask> allTasks = new List<ToDoTask>();
+            App.Database.GetItemsAsync<ToDoTask>().Result.ForEach(x => allTasks.Add(x));
+
             DebugUntagedTasksList(toDoProjectList);
 
-            _allGroups = new List<Project>();
-            foreach (ToDoProject todoItem in toDoProjectList)
+            _allGroups = new List<Project>();// expandable list
+            foreach (ToDoProject todoProject in toDoProjectList)
             {
-                _allGroups.Add(new Project(todoItem.Name, todoItem.Name[0].ToString(), todoItem.HexColor, todoItem.Description, todoItem.ID) {
-                    new ToDoTask("Bilk", "Yaa sauce", new DateTime(2018,5,29), new DateTime(2018,5,29), 5, "#b6ffb4", true, true)
-                });
+                Project newProject = new Project(todoProject.Name, todoProject.Name[0].ToString(), todoProject.HexColor, todoProject.Description, todoProject.ID);
+                allTasks
+                    .Where(x => x.ProjectId == newProject.ProjectId).ToList()
+                    .ForEach(x => newProject.Add(x));
+                _allGroups.Add(newProject);
             }
 
             ProjectsListHeight = toDoProjectList.Count * 160 + 90;

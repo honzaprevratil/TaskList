@@ -25,9 +25,12 @@ namespace TaskList
             }
         }
         public List<Color> Colors { get; set; }
-        public Color SelectedColor { get; set; }
+        public Color SelectedColor { get; set; } = null;
 
         public int ColorsListHeight { get; set; }
+        public List<ToDoProject> AllProjects { get; set; } = new List<ToDoProject>();
+        public ToDoProject SelectedProject { get; set; } = null;
+
 
         public void LoadTask(ToDoTask task)
         {
@@ -39,9 +42,12 @@ namespace TaskList
             Deadline = DateTime.Compare(task.Deadline, DateTime.Today.AddYears(-100)) < 0 ? DateTime.Today : task.Deadline;
             EstimatedTime = task.EstimatedTime;
             Console.WriteLine("EstimatedTime: " + EstimatedTime);
+
+            var project = AllProjects.Where(x => x.ID == task.ProjectId).ToList();
+            SelectedProject = (project.Count > 0) ? project[0] : null;
+
             var color = Colors.Where(x => x.HexColor == task.HexColor).ToList();
-            Console.WriteLine("Color: " + color[0].ToString());
-            SelectedColor = color.Count == 0 ? null : color[0];
+            SelectedColor = (color.Count > 0) ? color[0] : null;
         }
 
         public AddTaskVM()
@@ -55,6 +61,9 @@ namespace TaskList
                 new Color("Yellow","#fff7b5"),
             };
             ColorsListHeight = Colors.Count * 36 + 2;
+
+            AllProjects.Clear();
+            App.Database.GetItemsAsync<ToDoProject>().Result.ToList().ForEach(x => AllProjects.Add(x));
         }
         public bool SaveTaskIfValid()
         {
@@ -68,6 +77,12 @@ namespace TaskList
             if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Text) && SelectedColor != null)
             {
                 ToDoTask returnTask = new ToDoTask(Name, Text, StartDate, Deadline, (int)EstimatedTime, SelectedColor.HexColor, Done, false) { ID = TaskId };
+
+                if (SelectedProject != null)
+                {
+                    returnTask.ProjectId = SelectedProject.ID;
+                }
+
                 App.Database.SaveItemAsync(returnTask);
                 return true;
             }

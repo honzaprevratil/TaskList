@@ -23,7 +23,9 @@ namespace TaskList.Pages
         async void DeleteProjectClick(object sender, EventArgs e)
         {
             ToDoProject delete = new ToDoProject() { ID = ProjectsVM.LastOpened[ProjectsVM.LastOpened.Count - 1].ProjectId };
-            await App.Database.DeleteItemAsync<ToDoProject>(delete);
+            await App.Database.DeleteItemAsync(delete);
+            ProjectsVM.GetDataFromDb();
+            ProjectsVM.UpdateListContent();
         }
         protected override void OnAppearing()
         {

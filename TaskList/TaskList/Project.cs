@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Linq;
+
 
 namespace TaskList
 {
@@ -20,6 +22,29 @@ namespace TaskList
         public string ImageSource
         {
             get { return _imageSource; }
+        }
+
+        public string HoursToDo
+        {
+            get
+            {
+                int hoursToDo = 0;
+                this.Items
+                    .Where(x => !x.Done).ToList() // if not done
+                    .ForEach(x => hoursToDo += x.EstimatedTime); //add EstimatedTime
+                int allHours = 0;
+                this.Items.ToList().ForEach(x => allHours += x.EstimatedTime);
+                return hoursToDo + " / " + allHours;
+            }
+        }
+        public string TasksToDo
+        {
+            get
+            {
+                int undone = this.Items.Where(x => !x.Done).Count(); // if not done
+                int all = this.Items.Count();
+                return undone + " / " + all;
+            }
         }
 
         public bool Expanded

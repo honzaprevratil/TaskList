@@ -54,7 +54,7 @@
                             <Label Margin="0" Text="{Binding EstimatedTime, StringFormat='{0:0 h}'}" FontSize="Large" Grid.Row="3" Grid.Column="1" />
 
                             <Label Text="In project: " FontSize="Large" Grid.Row="4" Grid.Column="0" />
-                            <Label Margin="0" Text="No project" FontSize="Large" Grid.Row="4" Grid.Column="1" />
+                            <Label Margin="0" Text="{Binding ProjectName}" FontSize="Large" Grid.Row="4" Grid.Column="1" />
                         </Grid>
 
                         <Label Text="Description" FontSize="30" Margin="0,20,0,0"  TextColor="#333333"/>
