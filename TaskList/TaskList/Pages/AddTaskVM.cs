@@ -69,12 +69,12 @@ namespace TaskList
         }
         public bool SaveTaskIfValid()
         {
-            Console.WriteLine("   ");
+            /*Console.WriteLine("   ");
             Console.WriteLine(Name);
             Console.WriteLine(Text);
             Console.WriteLine(StartDate.ToLongDateString());
             Console.WriteLine(Deadline.ToLongDateString());
-            Console.WriteLine("   ");
+            Console.WriteLine("   ");*/
 
             if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Text) && SelectedColor != null)
             {

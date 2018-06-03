@@ -41,10 +41,10 @@ namespace TaskList
         }
         public bool SaveProjectIfValid()
         {
-            Console.WriteLine("   ");
+            /*Console.WriteLine("   ");
             Console.WriteLine(Name);
             Console.WriteLine(Text);
-            Console.WriteLine("   ");
+            Console.WriteLine("   ");*/
 
             if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Text) && SelectedColor != null)
             {

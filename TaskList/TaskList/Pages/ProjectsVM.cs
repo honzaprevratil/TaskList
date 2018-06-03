@@ -109,7 +109,7 @@ namespace TaskList
                     {
                         newGroup.Add(task);
                     }
-                    Console.WriteLine("\nEXPANDED\n");
+                    //Console.WriteLine("\nEXPANDED\n");
                     expandedProjects++;
                     if (lastProj.Count > 0)
                     {
@@ -120,7 +120,7 @@ namespace TaskList
                 }
                 else
                 {
-                    Console.WriteLine("\nNOT EXPANDED\n");
+                    //Console.WriteLine("\nNOT EXPANDED\n");
                     notExpandedProjects++;
                 }
                 ExpandedGroups.Add(newGroup);

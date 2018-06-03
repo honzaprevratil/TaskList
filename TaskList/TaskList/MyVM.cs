@@ -7,7 +7,7 @@ namespace TaskList
 {
     public class MyVM : INotifyPropertyChanged
     {
-        private int _exampleXD;
+        /*private int _exampleXD;
         public int ExampleXD
         {
             get => _exampleXD;
@@ -16,7 +16,7 @@ namespace TaskList
                 _exampleXD = value;
                 OnPropertyChanged("ExampleXD");
             }
-        }
+        }*/
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string name)
