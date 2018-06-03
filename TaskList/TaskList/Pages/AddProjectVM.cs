@@ -31,11 +31,11 @@ namespace TaskList
             
             // in new Project: all tasks will be UNCHECKED
             // in existing Project: all tasks that belong to this project will be CHECKED
-            // UntagedTasksList.Where(x => x.ProjectId == this.ProjectId && x.ProjectId != 0).ToList().ForEach(x => x.IsInProject = true);
+            UntagedTasksList.Where(x => x.ProjectId == this.ProjectId && x.ProjectId != 0).ToList().ForEach(x => x.IsInProject = true);
 
             // in new Project: all tasks, that are not in project will be CHECKED
             // in existing Project: all tasks that belong to this project will be CHECKED
-            UntagedTasksList.Where(x => x.ProjectId == this.ProjectId).ToList().ForEach(x => x.IsInProject = true);
+            //UntagedTasksList.Where(x => x.ProjectId == this.ProjectId).ToList().ForEach(x => x.IsInProject = true);
 
             TaskListHeight = UntagedTasksList.Count * 45;
         }
