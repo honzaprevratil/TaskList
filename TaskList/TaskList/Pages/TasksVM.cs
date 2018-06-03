@@ -37,7 +37,7 @@ namespace TaskList
             UntagedTasksList = new ObservableCollection<ToDoTask>();
             App.Database.GetItemsAsync<ToDoTask>().Result.ForEach(x => UntagedTasksList.Add(x));
             DebugUntagedTasksList();
-            TaskListHeight = UntagedTasksList.Count * 90 + 90;
+            TaskListHeight = UntagedTasksList.Count * 90 + 80;
             OnPropertyChanged("UntagedTasksList");
         }
         public TasksVM()

@@ -17,7 +17,7 @@ namespace TaskList
         private double _estimatedTime = 1;
         public double EstimatedTime
         {
-            get => Math.Round(_estimatedTime, 0);
+            get => _estimatedTime;
             set
             {
                 _estimatedTime = value;
@@ -63,6 +63,8 @@ namespace TaskList
             ColorsListHeight = Colors.Count * 36 + 2;
 
             AllProjects.Clear();
+            AllProjects.Add(new ToDoProject() { ID = 0, Name = "No project" });
+            SelectedProject = AllProjects[0];
             App.Database.GetItemsAsync<ToDoProject>().Result.ToList().ForEach(x => AllProjects.Add(x));
         }
         public bool SaveTaskIfValid()
@@ -76,7 +78,7 @@ namespace TaskList
 
             if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Text) && SelectedColor != null)
             {
-                ToDoTask returnTask = new ToDoTask(Name, Text, StartDate, Deadline, (int)EstimatedTime, SelectedColor.HexColor, Done, false) { ID = TaskId };
+                ToDoTask returnTask = new ToDoTask(Name, Text, StartDate, Deadline, (int)Math.Round(EstimatedTime, 0), SelectedColor.HexColor, Done, false) { ID = TaskId };
 
                 if (SelectedProject != null)
                 {

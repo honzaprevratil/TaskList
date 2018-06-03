@@ -68,8 +68,15 @@ namespace TaskList
             if (_allGroups[selectedIndex].Expanded)
                 LastOpened.Add(_allGroups[selectedIndex]);
             else
+            {
                 if (LastOpened.Count > 0)
-                    LastOpened.RemoveAt(LastOpened.Count-1);
+                {
+                    List<Project> newLastOpened = LastOpened.Except(LastOpened.Where(x => x.ProjectId == project.ProjectId).ToList()).ToList();
+                    LastOpened = newLastOpened;
+                }
+            }
+                
+            //LastOpened.RemoveAt(LastOpened.Count-1);
 
             UpdateListContent();
         }
@@ -79,19 +86,23 @@ namespace TaskList
             ExpandedGroups = new ObservableCollection<Project>();
 
             int tasks = 0;
-            int projects = 0;
+            int notExpandedProjects = 0;
             int expandedProjects = 0;
 
             foreach (Project group in _allGroups)
             {
-                Project newGroup = new Project(group.Name, group.ShortName, group.HexColor, group.Description)
+                Project newGroup = new Project(group.Name, group.ShortName, group.HexColor, group.Description, group.ProjectId)
                 {
                     Expanded = group.Expanded
                 };
-                projects++;
 
-                if (group.Expanded)
+                int xd = LastOpened.Where(x => x.ProjectId == group.ProjectId).ToList().Count;
+                Console.WriteLine(group.Name + " :: "+ xd);
+
+                if (group.Expanded || LastOpened.Where(x => x.ProjectId == group.ProjectId).ToList().Count > 0 )
                 {
+                    newGroup.Expanded = true;
+                    group.Expanded = true;
                     tasks += group.Count;
                     foreach (ToDoTask task in group)
                     {
@@ -102,13 +113,14 @@ namespace TaskList
                 }
                 else
                 {
-                    Console.WriteLine("\nNOT EXPANDED\n");    
+                    Console.WriteLine("\nNOT EXPANDED\n");
+                    notExpandedProjects++;
                 }
                 ExpandedGroups.Add(newGroup);
             }
 
             OnPropertyChanged("ExpandedGroups");
-            ProjectsListHeight = tasks * 90 + projects * 160 + 90;
+            ProjectsListHeight = tasks * 90 + notExpandedProjects * 105 + expandedProjects * 135 + 74;
 
             if (expandedProjects > 0)
                 OpenedProject = true;
@@ -119,20 +131,6 @@ namespace TaskList
         public ProjectsVM()
         {
             GroupClicked = new RelayCommand<Project>(GroupClickedMethod);
-
-            _allGroups = new List<Project> {
-                new Project ("Alfa", "A", "#4dd08a", "Alfa projekt hlavního alfáka") {
-                    new ToDoTask("Asr", "Spruce sauce", new DateTime(2018,5,29), new DateTime(2018,5,29), 5, "#b6ffb4", false, true),
-                    new ToDoTask("Amel alir", "Pine apple", new DateTime(2018,7,8), new DateTime(2018,7,8), 4, "#b3ffed", true, true),
-                    new ToDoTask("Amand", "Maple cake", new DateTime(2018,6,1), new DateTime(2018,6,1), 2, "#fff7b5", true, true)
-                },
-                new Project ("Bravo", "B", "#68cdbf", "Bingo brácho, budeš brát bravíčko.") {
-                    new ToDoTask("Bilk", "Yaa sauce", new DateTime(2018,5,29), new DateTime(2018,5,29), 5, "#b6ffb4", true, true),
-                    new ToDoTask("Balon", "Pine apple", new DateTime(2018,7,8), new DateTime(2018,7,8), 4, "#b3ffed", false, true),
-                    new ToDoTask("Bark", "Sik cake", new DateTime(2018,6,1), new DateTime(2018,6,1), 2, "#fff7b5", true, true)
-                }
-            };
-
             GetDataFromDb();
             UpdateListContent();
         }
@@ -142,8 +140,8 @@ namespace TaskList
             List<ToDoProject> toDoProjectList = new List<ToDoProject>();
             App.Database.GetItemsAsync<ToDoProject>().Result.ForEach(x => toDoProjectList.Add(x));
 
-            List<ToDoTask> allTasks = new List<ToDoTask>();
-            App.Database.GetItemsAsync<ToDoTask>().Result.ForEach(x => allTasks.Add(x));
+            List<ToDoTask> allToDoTasks = new List<ToDoTask>();
+            App.Database.GetItemsAsync<ToDoTask>().Result.ForEach(x => allToDoTasks.Add(x));
 
             DebugUntagedTasksList(toDoProjectList);
 
@@ -151,14 +149,11 @@ namespace TaskList
             foreach (ToDoProject todoProject in toDoProjectList)
             {
                 Project newProject = new Project(todoProject.Name, todoProject.Name[0].ToString(), todoProject.HexColor, todoProject.Description, todoProject.ID);
-                allTasks
+                allToDoTasks
                     .Where(x => x.ProjectId == newProject.ProjectId).ToList()
                     .ForEach(x => newProject.Add(x));
                 _allGroups.Add(newProject);
             }
-
-            ProjectsListHeight = toDoProjectList.Count * 160 + 90;
-            //OnPropertyChanged("UntagedTasksList");
         }
         public void DebugUntagedTasksList(List<ToDoProject> toDoProjectList)
         {

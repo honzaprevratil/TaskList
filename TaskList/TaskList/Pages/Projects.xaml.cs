@@ -39,7 +39,7 @@ namespace TaskList.Pages
             if (navigationSwitch)
             {
                 navigationSwitch = false;
-                await Navigation.PushModalAsync(new AddProject(new ToDoProject()));
+                await Navigation.PushModalAsync(new AddProject(new Project()));
             }
         }
         async void TaskClicked(object sender, SelectedItemChangedEventArgs e)
@@ -58,10 +58,7 @@ namespace TaskList.Pages
             if (navigationSwitch)
             {
                 navigationSwitch = false;
-                await Navigation.PushModalAsync(new AddProject
-                {
-                    BindingContext = ProjectsVM.LastOpened[ProjectsVM.LastOpened.Count - 1]
-                });
+                await Navigation.PushModalAsync(new AddProject(ProjectsVM.LastOpened[ProjectsVM.LastOpened.Count - 1]));
             }
         }
     }

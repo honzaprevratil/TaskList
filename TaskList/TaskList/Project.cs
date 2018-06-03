@@ -74,6 +74,7 @@ namespace TaskList
             HexColor = hexColor;
             Description = description;
         }
+        public Project() { }
 
         new public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string name)

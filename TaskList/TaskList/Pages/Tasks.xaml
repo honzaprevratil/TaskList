@@ -5,42 +5,51 @@
              Title="Tasks">
     <ContentPage.Content>
         <AbsoluteLayout>
-            <ListView 
-                ItemsSource="{Binding UntagedTasksList}"
-                SelectedItem="{Binding SelectedTask}"
-                HeightRequest="{Binding TaskListHeight}"
-                ItemTapped="TaskClicked"
+            <ScrollView
                 VerticalOptions="StartAndExpand"
-                HasUnevenRows="true"
-                SeparatorVisibility="None"
                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                 AbsoluteLayout.LayoutFlags="All">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell Height="90">
-                            <Frame
-                                CornerRadius="10"  
-                                Padding="10"
-                                BackgroundColor="{Binding HexColor}"
-                                Margin="10,4">
-                                <StackLayout Orientation="Horizontal">
+                <ListView 
+                    ItemsSource="{Binding UntagedTasksList}"
+                    SelectedItem="{Binding SelectedTask}"
+                    HeightRequest="{Binding TaskListHeight}"
+                    ItemTapped="TaskClicked"
+                    VerticalOptions="StartAndExpand"
+                    HasUnevenRows="true"
+                    SeparatorVisibility="None"
+                    Margin="0,10,0,0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell Height="90">
+                                <Frame
+                                    CornerRadius="10"  
+                                    Padding="10"
+                                    BackgroundColor="{Binding HexColor}"
+                                    Margin="10,4">
 
-                                    <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
+                                    <Grid IsVisible="{Binding Expanded}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3.5*" />
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="1*" />
+                                        </Grid.ColumnDefinitions>
+                                            
                                         <Label Text="{Binding Name}" FontSize="Large" TextColor="#212121" />
-                                        <Label FontSize="Medium" Text="{Binding Description}" />
-                                    </StackLayout>
+                                        <Label LineBreakMode="TailTruncation" FontSize="Medium" Text="{Binding Description}" Grid.Row="1" Grid.ColumnSpan="2"/>
+                                        <Label Text="{Binding Deadline, StringFormat='{0:dd.MM.yyyy}'}" HorizontalTextAlignment="End" FontSize="Medium" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                        <Label Text="DONE" HorizontalOptions="EndAndExpand" IsVisible="{Binding Done}" HorizontalTextAlignment="End" Grid.Row="1" Grid.Column="2" />
+                                    </Grid>
 
-                                    <StackLayout Orientation="Vertical" HorizontalOptions="EndAndExpand">
-                                        <Label Text="{Binding Deadline, StringFormat='{0:dd.MM.yyyy}'}" FontSize="Medium" />
-                                        <Label Text="DONE" HorizontalOptions="EndAndExpand" IsVisible="{Binding Done}" />
-                                    </StackLayout>
-
-                                </StackLayout>
-                            </Frame>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
 
             <Frame
                 CornerRadius="34"  

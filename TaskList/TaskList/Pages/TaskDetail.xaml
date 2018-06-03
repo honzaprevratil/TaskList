@@ -10,13 +10,13 @@
                 BackgroundColor="{Binding HexColor}"
                 CornerRadius="10"  
                 Padding="10"
-                Margin="10,4"
+                Margin="10,4,10,84"
                 VerticalOptions="StartAndExpand"
                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                 AbsoluteLayout.LayoutFlags="All">
                 <ScrollView
                     VerticalOptions="StartAndExpand">
-                    <StackLayout Padding="0,0,0,80">
+                    <StackLayout>
 
                         <Grid>
                             <Grid.RowDefinitions>

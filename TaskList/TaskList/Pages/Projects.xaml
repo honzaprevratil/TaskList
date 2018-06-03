@@ -7,85 +7,92 @@
              Title="Projects">
     <ContentPage.Content>
         <AbsoluteLayout>
-            <ListView 
-                ItemsSource="{Binding ExpandedGroups}"
-                SelectedItem="{Binding SelectedTask}"
-                ItemTapped="TaskClicked"
-                HeightRequest="{Binding ProjectsListHeight}"
+            <ScrollView
                 VerticalOptions="StartAndExpand"
-                HasUnevenRows="true"
-                SeparatorVisibility="None"
-		        GroupDisplayBinding="{Binding Name}"
-		        GroupShortNameBinding="{Binding ShortName}"
-		        IsGroupingEnabled="true"
                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                 AbsoluteLayout.LayoutFlags="All">
+                <ListView 
+                    ItemsSource="{Binding ExpandedGroups}"
+                    SelectedItem="{Binding SelectedTask}"
+                    HeightRequest="{Binding ProjectsListHeight}"
+                    ItemTapped="TaskClicked"
+                    VerticalOptions="StartAndExpand"
+                    HasUnevenRows="true"
+                    SeparatorVisibility="None"
+		            GroupDisplayBinding="{Binding Name}"
+		            GroupShortNameBinding="{Binding ShortName}"
+		            IsGroupingEnabled="true"
+                    Margin="0,10,0,0">
 
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell Height="90">
-                            <Frame
-                                CornerRadius="10"  
-                                Padding="10"
-                                Margin="10,4">
-                                <StackLayout Orientation="Horizontal">
-
-                                    <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
-                                        <Label Text="{Binding Name}" FontSize="Large" TextColor="#212121" />
-                                        <Label FontSize="Medium" Text="{Binding Description}" />
-                                    </StackLayout>
-
-                                    <StackLayout Orientation="Vertical" HorizontalOptions="EndAndExpand">
-                                        <Label Text="{Binding Deadline, StringFormat='{0:dd.MM.yyyy}'}" FontSize="Medium" />
-                                        <Label Text="DONE" HorizontalOptions="EndAndExpand" IsVisible="{Binding Done}" />
-                                    </StackLayout>
-
-                                </StackLayout>
-                            </Frame>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-
-                <ListView.GroupHeaderTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Frame
-                                CornerRadius="10"  
-                                BackgroundColor="{Binding HexColor}"
-                                Padding="10" 
-                                Margin="10,8,10,4">
-                                <StackLayout Orientation="Vertical">
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" FontSize="28" FontAttributes="Bold" />
-                                        <Button Image="{Binding ImageSource}" Opacity="0.5" BackgroundColor="#00000000" HeightRequest="40"  WidthRequest="40" HorizontalOptions="End" Command="{Binding Path=BindingContext. GroupClicked, Source={x:Reference Name=MyPageProjects}}" CommandParameter="{Binding}" />
-                                    </StackLayout>
-
-                                    <Grid IsVisible="{Binding Expanded}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell Height="90">
+                                <Frame
+                                    CornerRadius="10"  
+                                    Padding="10"
+                                    Margin="10,4">
+                                    <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="auto" />
                                             <RowDefinition Height="auto" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="0.5*" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="0.5*" />
+                                            <ColumnDefinition Width="3.5*" />
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="1*" />
                                         </Grid.ColumnDefinitions>
 
-                                        <Label Text="Hours to do: " FontSize="Small" Grid.Row="0" Grid.Column="0" />
-                                        <Label Margin="0" Text="{Binding HoursToDo}" FontSize="Small" Grid.Row="0" Grid.Column="1" />
-
-                                        <Label Text="Tasks to do: " FontSize="Small" Grid.Row="0" Grid.Column="2" />
-                                        <Label Margin="0" Text="{Binding TasksToDo}" FontSize="Small" Grid.Row="0" Grid.Column="3" />
-
+                                        <Label Text="{Binding Name}" FontSize="Large" TextColor="#212121" />
+                                        <Label LineBreakMode="TailTruncation" FontSize="Medium" Text="{Binding Description}" Grid.Row="1" Grid.ColumnSpan="2"/>
+                                        <Label Text="{Binding Deadline, StringFormat='{0:dd.MM.yyyy}'}" HorizontalTextAlignment="End" FontSize="Medium" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                        <Label Text="DONE" HorizontalOptions="EndAndExpand" IsVisible="{Binding Done}" HorizontalTextAlignment="End" Grid.Row="1" Grid.Column="2" />
                                     </Grid>
-                                    <Label LineBreakMode="TailTruncation" FontSize="Medium" Margin="0,5,0,0" Text="{Binding Description}" />
-                                </StackLayout>
-                            </Frame>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.GroupHeaderTemplate>
-            </ListView>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <ListView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame
+                                    CornerRadius="10"  
+                                    BackgroundColor="{Binding HexColor}"
+                                    Padding="10" 
+                                    Margin="10,4">
+                                    <StackLayout Orientation="Vertical">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" FontSize="28" FontAttributes="Bold" />
+                                            <Button Image="{Binding ImageSource}" Opacity="0.5" BackgroundColor="#00000000" HeightRequest="40"  WidthRequest="40" HorizontalOptions="End" Command="{Binding Path=BindingContext. GroupClicked, Source={x:Reference Name=MyPageProjects}}" CommandParameter="{Binding}" />
+                                        </StackLayout>
+
+                                        <Grid IsVisible="{Binding Expanded}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="0.5*" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="0.5*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Text="Hours to do: " FontSize="Small" Grid.Row="0" Grid.Column="0" />
+                                            <Label Margin="0" Text="{Binding HoursToDo}" FontSize="Small" Grid.Row="0" Grid.Column="1" />
+
+                                            <Label Text="Tasks to do: " FontSize="Small" Grid.Row="0" Grid.Column="2" />
+                                            <Label Margin="0" Text="{Binding TasksToDo}" FontSize="Small" Grid.Row="0" Grid.Column="3" />
+
+                                        </Grid>
+                                        <Label LineBreakMode="TailTruncation" FontSize="Medium" Margin="0,5,0,0" Text="{Binding Description}" />
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.GroupHeaderTemplate>
+                </ListView>
+            </ScrollView>
 
             <Frame
                 CornerRadius="34"  

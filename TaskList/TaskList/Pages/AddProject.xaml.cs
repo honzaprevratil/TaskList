@@ -19,7 +19,7 @@ namespace TaskList
             InitializeComponent();
             this.BindingContext = AddProjectVM;
         }
-        public AddProject(ToDoProject project)
+        public AddProject(Project project)
         {
             InitializeComponent();
             AddProjectVM.LoadProject(project);
