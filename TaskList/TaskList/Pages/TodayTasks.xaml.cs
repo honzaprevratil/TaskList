@@ -13,18 +13,40 @@ namespace TaskList.Pages
 	public partial class TodayTasks : ContentPage
 	{
         public TodayTasksVM TodayTasksVM = new TodayTasksVM();
+        bool navigationSwitch = true;
 
-		public TodayTasks ()
+        public TodayTasks ()
 		{
 			InitializeComponent ();
             this.BindingContext = TodayTasksVM;
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            navigationSwitch = true;
+            TodayTasksVM.GetDataFromDb();
+        }
         async void TaskClicked(object sender, SelectedItemChangedEventArgs e)
         {
-            await Navigation.PushModalAsync(new TaskDetail
+            if (navigationSwitch)
             {
-                //BindingContext = TodayTasksVM.SelectedTask
-            });
+                navigationSwitch = false;
+                await Navigation.PushModalAsync(new TaskDetail
+                {
+                    BindingContext = TodayTasksVM.TasksVM.SelectedTask
+                });
+            }
+        }
+        async void ProjectTaskClicked(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (navigationSwitch)
+            {
+                navigationSwitch = false;
+                await Navigation.PushModalAsync(new TaskDetail
+                {
+                    BindingContext = TodayTasksVM.ProjectsVM.SelectedTask
+                });
+            }
         }
     }
 }

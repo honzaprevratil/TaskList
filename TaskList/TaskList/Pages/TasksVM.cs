@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
+using System.Linq;
 
 namespace TaskList
 {
@@ -32,33 +33,23 @@ namespace TaskList
             }
         }
 
-        public void GetDataFromDb()
+        public void GetDataFromDb(bool OnlyTodayTasks = false)
         {
             UntagedTasksList = new ObservableCollection<ToDoTask>();
-            App.Database.GetItemsAsync<ToDoTask>().Result.ForEach(x => UntagedTasksList.Add(x));
-            DebugUntagedTasksList();
+            if (OnlyTodayTasks)
+            {
+                App.Database.GetItemsAsync<ToDoTask>().Result
+                    .Where(x => DateTime.Compare(x.StartDate, DateTime.Now) <= 0 && !x.Done && x.ProjectId == 0).ToList()
+                    .ForEach(x => UntagedTasksList.Add(x));
+            }
+            else
+                App.Database.GetItemsAsync<ToDoTask>().Result.ForEach(x => UntagedTasksList.Add(x));
             TaskListHeight = UntagedTasksList.Count * 90 + 80;
             OnPropertyChanged("UntagedTasksList");
         }
         public TasksVM()
         {
             GetDataFromDb();
-        }
-        public void DebugUntagedTasksList()
-        {
-            Debug.WriteLine("                             ");
-            Debug.WriteLine("                             ");
-            Debug.WriteLine("                             ");
-
-            Debug.WriteLine(UntagedTasksList.Count);
-            foreach (ToDoTask todoItem in UntagedTasksList)
-            {
-                Debug.WriteLine(todoItem);
-            }
-
-            Debug.WriteLine("                             ");
-            Debug.WriteLine("                             ");
-            Debug.WriteLine("                             ");
         }
     }
 }

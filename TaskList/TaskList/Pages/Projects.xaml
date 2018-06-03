@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TaskList.Pages.Projects"
              xmlns:local="clr-namespace:TaskList; assembly=TaskList"
+             x:Class="TaskList.Pages.Projects"
              x:Name="MyPageProjects"
              Title="Projects">
     <ContentPage.Content>
@@ -63,7 +63,7 @@
                                     <StackLayout Orientation="Vertical">
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" FontSize="28" FontAttributes="Bold" />
-                                            <Button Image="{Binding ImageSource}" Opacity="0.5" BackgroundColor="#00000000" HeightRequest="40"  WidthRequest="40" HorizontalOptions="End" Command="{Binding Path=BindingContext. GroupClicked, Source={x:Reference Name=MyPageProjects}}" CommandParameter="{Binding}" />
+                                            <Button Image="{Binding ImageSource}" Opacity="0.5" BackgroundColor="#00000000" HeightRequest="40"  WidthRequest="40" HorizontalOptions="End" Command="{Binding Path=BindingContext.GroupClicked, Source={x:Reference Name=MyPageProjects}}" CommandParameter="{Binding}" />
                                         </StackLayout>
 
                                         <Grid IsVisible="{Binding Expanded}">

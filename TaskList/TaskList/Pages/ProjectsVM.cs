@@ -14,6 +14,7 @@ namespace TaskList
     {
         private List<Project> _allGroups { set; get; }
         public ObservableCollection<Project> ExpandedGroups { set; get; }
+        public bool onlyTodayTasks = false;
         
         private int _projectsListHeight;
         public int ProjectsListHeight
@@ -76,8 +77,6 @@ namespace TaskList
                 }
             }
                 
-            //LastOpened.RemoveAt(LastOpened.Count-1);
-
             UpdateListContent();
         }
 
@@ -96,10 +95,12 @@ namespace TaskList
                     Expanded = group.Expanded
                 };
 
-                int xd = LastOpened.Where(x => x.ProjectId == group.ProjectId).ToList().Count;
-                Console.WriteLine(group.Name + " :: "+ xd);
+                //int consoleTest = LastOpened.Where(x => x.ProjectId == group.ProjectId).ToList().Count;
+                //Console.WriteLine(group.Name + " :: "+ consoleTest);
 
-                if (group.Expanded || LastOpened.Where(x => x.ProjectId == group.ProjectId).ToList().Count > 0 )
+                List<Project> lastProj = LastOpened.Where(x => x.ProjectId == group.ProjectId).ToList();
+
+                if (group.Expanded || lastProj.Count > 0)
                 {
                     newGroup.Expanded = true;
                     group.Expanded = true;
@@ -110,6 +111,12 @@ namespace TaskList
                     }
                     Console.WriteLine("\nEXPANDED\n");
                     expandedProjects++;
+                    if (lastProj.Count > 0)
+                    {
+                        List<Project> newLastOpened = LastOpened.Except(lastProj).ToList();
+                        newLastOpened.Add(newGroup);
+                        LastOpened = newLastOpened;
+                    }
                 }
                 else
                 {
@@ -120,7 +127,10 @@ namespace TaskList
             }
 
             OnPropertyChanged("ExpandedGroups");
-            ProjectsListHeight = tasks * 90 + notExpandedProjects * 105 + expandedProjects * 135 + 74;
+            if (onlyTodayTasks)
+                ProjectsListHeight = tasks * 90 + (notExpandedProjects + expandedProjects) * 65 + 6;
+            else
+                ProjectsListHeight = tasks * 90 + notExpandedProjects * 105 + expandedProjects * 135 + 74;
 
             if (expandedProjects > 0)
                 OpenedProject = true;
@@ -141,9 +151,16 @@ namespace TaskList
             App.Database.GetItemsAsync<ToDoProject>().Result.ForEach(x => toDoProjectList.Add(x));
 
             List<ToDoTask> allToDoTasks = new List<ToDoTask>();
-            App.Database.GetItemsAsync<ToDoTask>().Result.ForEach(x => allToDoTasks.Add(x));
 
-            DebugUntagedTasksList(toDoProjectList);
+            if (onlyTodayTasks)
+            {
+                App.Database.GetItemsAsync<ToDoTask>().Result
+                    .Where(x => DateTime.Compare(x.StartDate, DateTime.Now) <= 0 && !x.Done).ToList()
+                    .ForEach(x => allToDoTasks.Add(x));
+            }
+            else
+                App.Database.GetItemsAsync<ToDoTask>().Result.ForEach(x => allToDoTasks.Add(x));
+
 
             _allGroups = new List<Project>();// expandable list
             foreach (ToDoProject todoProject in toDoProjectList)
@@ -152,24 +169,17 @@ namespace TaskList
                 allToDoTasks
                     .Where(x => x.ProjectId == newProject.ProjectId).ToList()
                     .ForEach(x => newProject.Add(x));
-                _allGroups.Add(newProject);
-            }
-        }
-        public void DebugUntagedTasksList(List<ToDoProject> toDoProjectList)
-        {
-            Debug.WriteLine("                             ");
-            Debug.WriteLine("                             ");
-            Debug.WriteLine("                             ");
 
-            Debug.WriteLine(toDoProjectList.Count);
-            foreach (ToDoProject todoItem in toDoProjectList)
-            {
-                Debug.WriteLine(todoItem);
+                if (onlyTodayTasks)
+                {
+                    if (newProject.Count > 0)
+                    {
+                        _allGroups.Add(newProject);
+                    }
+                }
+                else
+                    _allGroups.Add(newProject);
             }
-
-            Debug.WriteLine("                             ");
-            Debug.WriteLine("                             ");
-            Debug.WriteLine("                             ");
         }
     }
 }

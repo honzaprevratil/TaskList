@@ -14,9 +14,9 @@
                     Padding="10"
                     BackgroundColor="#EEEEEE"
                     Margin="10,10,10,0">
+
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
@@ -26,52 +26,75 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="0.5*" />
                         </Grid.ColumnDefinitions>
+
                         <Label Text="Today progress" FontSize="Large" FontAttributes="Bold"  TextColor="Black" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"/>
 
-                        <Label Text="Hours spent: " FontSize="Small" Grid.Row="1" Grid.Column="0" />
-                        <Label Margin="0" Text="3 / 10" FontSize="Small" Grid.Row="1" Grid.Column="1" />
+                        <Label Text="Hours to do: " FontSize="Small" Grid.Row="1" Grid.Column="0" />
+                        <Label Margin="0" Text="{Binding HoursToDo}" FontSize="Small" Grid.Row="1" Grid.Column="1" />
 
-                        <Label Text="Hours to do: " FontSize="Small" Grid.Row="1" Grid.Column="2" />
-                        <Label Margin="0" Text="7 / 10" FontSize="Small" Grid.Row="1" Grid.Column="3" />
+                        <Label Text="Tasks to do: " FontSize="Small" Grid.Row="1" Grid.Column="2" />
+                        <Label Margin="0" Text="{Binding TasksToDo}" FontSize="Small" Grid.Row="1" Grid.Column="3" />
 
-                        <Label Text="Tasks done: " FontSize="Small" Grid.Row="2" Grid.Column="0" />
-                        <Label Margin="0" Text="2 / 7" FontSize="Small" Grid.Row="2" Grid.Column="1" />
+                    </Grid>
+                </Frame>
+                
+                <Frame 
+                    IsVisible="{Binding AllTasksDone}"
+                    CornerRadius="10"  
+                    Padding="10"
+                    BackgroundColor="#EEEEEE"
+                    Margin="10,10,10,0">
 
-                        <Label Text="Taks to do: " FontSize="Small" Grid.Row="2" Grid.Column="2" />
-                        <Label Margin="0" Text="3 / 5" FontSize="Small" Grid.Row="2" Grid.Column="3" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="Today progress" TextColor="#212121" FontSize="Large" FontAttributes="Bold">
+                            All today tasks are done!
+                        </Label>
                     </Grid>
                 </Frame>
 
+
                 <ListView 
-                    ItemsSource="{Binding UntagedTasksList}"
-                    HeightRequest="{Binding TaskListHeight}"
-                    SelectedItem="{Binding SelectedTask}"
+                    ItemsSource="{Binding TasksVM.UntagedTasksList}"
+                    SelectedItem="{Binding TasksVM.SelectedTask}"
+                    HeightRequest="{Binding TasksVM.TaskListHeight}"
                     ItemTapped="TaskClicked"
                     VerticalOptions="StartAndExpand"
                     HasUnevenRows="true"
-                    SeparatorVisibility="None">
-
+                    SeparatorVisibility="None"
+                    Margin="0,10,0,-80">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell Height="90">
                                 <Frame
-                                    BackgroundColor="{Binding HexColor}"
                                     CornerRadius="10"  
                                     Padding="10"
+                                    BackgroundColor="{Binding HexColor}"
                                     Margin="10,4">
-                                    <StackLayout Orientation="Horizontal">
 
-                                        <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
-                                            <Label Text="{Binding Name}" FontSize="Large" TextColor="#212121" />
-                                            <Label FontSize="Medium" Text="{Binding Description}" />
-                                        </StackLayout>
+                                    <Grid IsVisible="{Binding Expanded}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3.5*" />
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="1*" />
+                                        </Grid.ColumnDefinitions>
 
-                                        <StackLayout Orientation="Vertical" HorizontalOptions="End">
-                                            <Label Text="{Binding Deadline, StringFormat='{0:dd.MM.yyyy}'}" FontSize="Medium" />
-                                            <Switch HorizontalOptions="EndAndExpand" IsToggled="{Binding Done}" />
-                                        </StackLayout>
+                                        <Label Text="{Binding Name}" FontSize="Large" TextColor="#212121" />
+                                        <Label LineBreakMode="TailTruncation" FontSize="Medium" Text="{Binding Description}" Grid.Row="1" Grid.ColumnSpan="2"/>
+                                        <Label Text="{Binding Deadline, StringFormat='{0:dd.MM.yyyy}'}" HorizontalTextAlignment="End" FontSize="Medium" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                        <Label Text="DONE" HorizontalOptions="EndAndExpand" IsVisible="{Binding Done}" HorizontalTextAlignment="End" Grid.Row="1" Grid.Column="2" />
+                                    </Grid>
 
-                                    </StackLayout>
                                 </Frame>
                             </ViewCell>
                         </DataTemplate>
@@ -79,37 +102,41 @@
                 </ListView>
 
                 <ListView 
-                    ItemsSource="{Binding ExpandedGroups}"
-                    HeightRequest="{Binding ProjectsListHeight}"
-                    SelectedItem="{Binding SelectedTask}"
-                    ItemTapped="TaskClicked"
+                    ItemsSource="{Binding ProjectsVM.ExpandedGroups}"
+                    SelectedItem="{Binding ProjectsVM.SelectedTask}"
+                    HeightRequest="{Binding ProjectsVM.ProjectsListHeight}"
+                    ItemTapped="ProjectTaskClicked"
                     VerticalOptions="StartAndExpand"
                     HasUnevenRows="true"
                     SeparatorVisibility="None"
 		            GroupDisplayBinding="{Binding Name}"
 		            GroupShortNameBinding="{Binding ShortName}"
-		            IsGroupingEnabled="true">
+		            IsGroupingEnabled="true"
+                    Margin="0,10,0,0">
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell Height="90">
                                 <Frame
-                                        CornerRadius="10"  
-                                        Padding="10"
-                                        Margin="10,4">
-                                    <StackLayout Orientation="Horizontal">
+                                    CornerRadius="10"  
+                                    Padding="10"
+                                    Margin="10,4">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3.5*" />
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="1*" />
+                                        </Grid.ColumnDefinitions>
 
-                                        <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
-                                            <Label Text="{Binding Name}" FontSize="Large" TextColor="#212121" />
-                                            <Label FontSize="Medium" Text="{Binding Description}" />
-                                        </StackLayout>
-
-                                        <StackLayout Orientation="Vertical" HorizontalOptions="End">
-                                            <Label Text="{Binding Deadline, StringFormat='{0:dd.MM.yyyy}'}" FontSize="Medium" />
-                                            <Switch HorizontalOptions="EndAndExpand" IsToggled="{Binding Done}" />
-                                        </StackLayout>
-
-                                    </StackLayout>
+                                        <Label Text="{Binding Name}" FontSize="Large" TextColor="#212121" />
+                                        <Label LineBreakMode="TailTruncation" FontSize="Medium" Text="{Binding Description}" Grid.Row="1" Grid.ColumnSpan="2"/>
+                                        <Label Text="{Binding Deadline, StringFormat='{0:dd.MM.yyyy}'}" HorizontalTextAlignment="End" FontSize="Medium" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                        <Label Text="DONE" HorizontalOptions="EndAndExpand" IsVisible="{Binding Done}" HorizontalTextAlignment="End" Grid.Row="1" Grid.Column="2" />
+                                    </Grid>
                                 </Frame>
                             </ViewCell>
                         </DataTemplate>
@@ -117,16 +144,16 @@
 
                     <ListView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <ViewCell Height="70">
+                            <ViewCell Height="65">
                                 <Frame
                                     CornerRadius="10"  
                                     BackgroundColor="{Binding HexColor}"
                                     Padding="10" 
-                                    Margin="10,8,10,4">
+                                    Margin="10,4">
                                     <StackLayout Orientation="Vertical">
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" FontSize="28" FontAttributes="Bold" />
-                                            <Button Image="{Binding ImageSource}" Opacity="0.5" BackgroundColor="#00000000" HeightRequest="40"  WidthRequest="40" HorizontalOptions="End" Command="{Binding Path=BindingContext. GroupClicked, Source={x:Reference Name=MyPageTodayTasks}}" CommandParameter="{Binding}" />
+                                            <Button Image="{Binding ImageSource}" Opacity="0.5" BackgroundColor="#00000000" HeightRequest="40"  WidthRequest="40" HorizontalOptions="End" Command="{Binding Path=BindingContext.ProjectsVM.GroupClicked, Source={x:Reference Name=MyPageTodayTasks}}" CommandParameter="{Binding}" />
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>

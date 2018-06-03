@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using Xamarin.Forms;
 
@@ -11,103 +12,51 @@ namespace TaskList
 {
     public class TodayTasksVM : MyVM
     {
-        private List<Project> _allGroups { set; get; }
+        public TasksVM TasksVM { get; set; } = new TasksVM();
+        public ProjectsVM ProjectsVM { get; set; } = new ProjectsVM() { onlyTodayTasks = true };
+        public List<ToDoTask> AllToDoTasks = new List<ToDoTask>();
+        public bool AllTasksDone { get; set; }
 
-        public ObservableCollection<Project> ExpandedGroups { set; get; }
-        public List<ToDoTask> UntagedTasksList { get; set; }
-        public int TaskListHeight { get; set; }
-
-        private ToDoTask _selectedTask = null;
-        public ToDoTask SelectedTask
+        public void GetDataFromDb ()
         {
-            get => _selectedTask;
-            set
+            AllToDoTasks.Clear();
+            App.Database.GetItemsAsync<ToDoTask>().Result
+                .Where(x => DateTime.Compare(x.StartDate, DateTime.Now) <= 0).ToList()
+                .ForEach(x => AllToDoTasks.Add(x));
+
+            AllTasksDone = (TasksToDo == ("0 / " + AllToDoTasks.Count()) ) ? true : false;
+
+            OnPropertyChanged("AllTasksDone");
+            OnPropertyChanged("HoursToDo");
+            OnPropertyChanged("TasksToDo");
+
+            TasksVM.GetDataFromDb(true);
+            ProjectsVM.GetDataFromDb();
+            ProjectsVM.UpdateListContent();
+        }
+
+        public string HoursToDo
+        {
+            get
             {
-                _selectedTask = value;
-                OnPropertyChanged("SelectedTask");
+                int hoursToDo = 0;
+                int allHours = 0;
+
+                AllToDoTasks
+                    .Where(x => !x.Done).ToList() // if not done
+                    .ForEach(x => hoursToDo += x.EstimatedTime); //add EstimatedTime
+                AllToDoTasks.ForEach(x => allHours += x.EstimatedTime);
+                return hoursToDo + " / " + allHours;
             }
         }
-
-        private int _projectsListHeight;
-        public int ProjectsListHeight
+        public string TasksToDo
         {
-            get => _projectsListHeight;
-            set
+            get
             {
-                _projectsListHeight = value;
-                OnPropertyChanged("ProjectsListHeight");
+                int undone = AllToDoTasks.Where(x => !x.Done).Count(); // if not done
+                int all = AllToDoTasks.Count();
+                return undone + " / " + all;
             }
-        }
-        // Command with parameter
-        public RelayCommand<Project> GroupClicked { get; }
-        
-        private void GroupClickedMethod(Project project)
-        {
-            int selectedIndex = ExpandedGroups.IndexOf(project);
-            _allGroups[selectedIndex].Expanded = !(_allGroups[selectedIndex].Expanded);
-            UpdateListContent();
-        }
-
-        private void UpdateListContent()
-        {
-            ExpandedGroups = new ObservableCollection<Project>();
-
-            int tasks = 0;
-            int projects = 0;
-
-            foreach (Project group in _allGroups)
-            {
-                Project newGroup = new Project(group.Name, group.ShortName, group.HexColor, group.Description)
-                {
-                    Expanded = group.Expanded
-                };
-                projects++;
-
-                if (group.Expanded)
-                {
-                    tasks += group.Count;
-                    foreach (ToDoTask task in group)
-                    {
-                        newGroup.Add(task);
-                    }
-                    Console.WriteLine("\nEXPANDED\n");
-                }
-                else
-                {
-                    Console.WriteLine("\nNOT EXPANDED\n");    
-                }
-                ExpandedGroups.Add(newGroup);
-            }
-
-            OnPropertyChanged("ExpandedGroups");
-            ProjectsListHeight = tasks * 90 + projects * 70 + 10;
-        }
-
-        public TodayTasksVM()
-        {
-            GroupClicked = new RelayCommand<Project>(GroupClickedMethod);
-
-            _allGroups = new List<Project> {
-                new Project ("Alfa", "A", "#4dd08a", "Alfa projekt hlavního alfáka") {
-                new ToDoTask("Asr", "Spruce sauce", new DateTime(2018,5,29), new DateTime(2018,5,29), 5, "#b6ffb4", false, true),
-                new ToDoTask("Amel alir", "Pine apple", new DateTime(2018,7,8), new DateTime(2018,7,8), 4, "#b3ffed", true, true),
-                new ToDoTask("Amand", "Maple cake", new DateTime(2018,6,1), new DateTime(2018,6,1), 2, "#fff7b5", true, true)
-                },
-                new Project ("Bravo", "B", "#68cdbf", "Bingo brácho, budeš brát bravíčko.") {
-                new ToDoTask("Bilk", "Yaa sauce", new DateTime(2018,5,29), new DateTime(2018,5,29), 5, "#b6ffb4", true, true),
-                new ToDoTask("Balon", "Pine apple", new DateTime(2018,7,8), new DateTime(2018,7,8), 4, "#b3ffed", false, true),
-                new ToDoTask("Bark", "Sik cake", new DateTime(2018,6,1), new DateTime(2018,6,1), 2, "#fff7b5", true, true)
-                }
-            };
-
-            UntagedTasksList = new List<ToDoTask> {
-                new ToDoTask("Celer", "Spruce sauce", new DateTime(2018,5,29), new DateTime(2018,5,29), 5, "#b6ffb4", false, false),
-                new ToDoTask("Cicka", "Pine apple", new DateTime(2018,7,8), new DateTime(2018,7,8), 4, "#b3ffed", false, false),
-                new ToDoTask("Capr", "Maple cake", new DateTime(2018,6,1), new DateTime(2018,6,1), 2, "#fff7b5", true, false)
-            };
-
-            TaskListHeight = UntagedTasksList.Count * 90;
-            UpdateListContent();
         }
     }
 }

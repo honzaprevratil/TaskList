@@ -28,7 +28,7 @@ namespace TaskList.Pages
         }
         async void AddTaskClick(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new AddTask(new ToDoTask()));
+            await Navigation.PushModalAsync(new AddTask(new ToDoTask() { EstimatedTime = 1 }));
         }
         async void TaskClicked(object sender, SelectedItemChangedEventArgs e)
         {

@@ -22,8 +22,11 @@ namespace TaskList.Pages
         }
         async void DeleteProjectClick(object sender, EventArgs e)
         {
-            ToDoProject delete = new ToDoProject() { ID = ProjectsVM.LastOpened[ProjectsVM.LastOpened.Count - 1].ProjectId };
+            int projectId = ProjectsVM.LastOpened[ProjectsVM.LastOpened.Count - 1].ProjectId;
+            ToDoProject delete = new ToDoProject() { ID = projectId };
             await App.Database.DeleteItemAsync(delete);
+            List<ToDoTask> deleteTasks = App.Database.GetItemsAsync<ToDoTask>().Result.Where(x => x.ProjectId == projectId).ToList();
+            deleteTasks.ForEach(x => App.Database.DeleteItemAsync(x));
             ProjectsVM.GetDataFromDb();
             ProjectsVM.UpdateListContent();
         }
