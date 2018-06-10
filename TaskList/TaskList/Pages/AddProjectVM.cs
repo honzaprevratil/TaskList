@@ -48,9 +48,10 @@ namespace TaskList
 
             if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Text) && SelectedColor != null)
             {
-                ToDoProject returnProject = new ToDoProject(Name, Text, SelectedColor.HexColor) { ID = ProjectId };
-                App.Database.SaveItemAsync(returnProject);
-                
+                ToDoProject returnProject = new ToDoProject(Name, Text, SelectedColor.HexColor) { ID = this.ProjectId };
+                int doneOrNot = App.Database.SaveItemAsync(returnProject).Result;
+                this.ProjectId = App.Database.GetItemsAsync<ToDoProject>().Result.Where(x => x.Name == Name && x.HexColor == SelectedColor.HexColor && x.Description == Text).ToList()[0].ID;
+
                 foreach (ToDoTask task in UntagedTasksList)
                 {
                     if (task.IsInProject == true)
@@ -73,14 +74,16 @@ namespace TaskList
         public AddProjectVM()
         {
             Colors = new List<Color> {
-                new Color("Red","#ffb3b3"),
-                new Color("Pink","#ffb3fd"),
-                new Color("Purple","#b4b3ff"),
-                new Color("Blue","#b3ffed"),
-                new Color("Green","#b6ffb4"),
-                new Color("Yellow","#fff7b5"),
+                new Color("Pink","#F48FB1"),
+                new Color("Purple","#B39DDB"),
+                new Color("Blue","#90CAF9"),
+                new Color("Green","#A5D6A7"),
+                new Color("Lime","#E6EE9C"),
+                new Color("Yellow","#FFF59D"),
+                new Color("Orange","#FFCC80"),
+                new Color("Gray","#EEEEEE"),
             };
-            ColorsListHeight = Colors.Count * 36 + 2;
+            ColorsListHeight = (Colors.Count + 1) * 40 + 5;
         }
     }
 }

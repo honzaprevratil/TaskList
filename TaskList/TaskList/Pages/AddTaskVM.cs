@@ -13,6 +13,8 @@ namespace TaskList
         public bool Done { get; set; }
         public DateTime StartDate { get; set; } = DateTime.Today;
         public DateTime Deadline { get; set; } = DateTime.Today;
+        public DateTime DoneDate { get; set; }
+
 
         private double _estimatedTime = 1;
         public double EstimatedTime
@@ -40,6 +42,7 @@ namespace TaskList
             Done = task.Done;
             StartDate = DateTime.Compare(task.StartDate, DateTime.Today.AddYears(-100)) < 0 ? DateTime.Today : task.StartDate;
             Deadline = DateTime.Compare(task.Deadline, DateTime.Today.AddYears(-100)) < 0 ? DateTime.Today : task.Deadline;
+            DoneDate = DateTime.Compare(task.DoneDate, DateTime.Today.AddYears(-100)) < 0 ? DateTime.Today : task.DoneDate;
             EstimatedTime = task.EstimatedTime;
             Console.WriteLine("EstimatedTime: " + EstimatedTime);
 
@@ -53,14 +56,16 @@ namespace TaskList
         public AddTaskVM()
         {
             Colors = new List<Color> {
-                new Color("Red","#ffb3b3"),
-                new Color("Pink","#ffb3fd"),
-                new Color("Purple","#b4b3ff"),
-                new Color("Blue","#b3ffed"),
-                new Color("Green","#b6ffb4"),
-                new Color("Yellow","#fff7b5"),
+                new Color("Pink","#F8BBD0"),
+                new Color("Purple","#D1C4E9"),
+                new Color("Blue","#BBDEFB"),
+                new Color("Green","#C8E6C9"),
+                new Color("Lime","#F0F4C3"),
+                new Color("Yellow","#FFF9C4"),
+                new Color("Orange","#FFE0B2"),
+                new Color("Gray","#F5F5F5"),
             };
-            ColorsListHeight = Colors.Count * 36 + 2;
+            ColorsListHeight = (Colors.Count + 1) * 40 + 5;
 
             AllProjects.Clear();
             AllProjects.Add(new ToDoProject() { ID = 0, Name = "No project" });
@@ -78,7 +83,10 @@ namespace TaskList
 
             if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Text) && SelectedColor != null)
             {
-                ToDoTask returnTask = new ToDoTask(Name, Text, StartDate, Deadline, (int)Math.Round(EstimatedTime, 0), SelectedColor.HexColor, Done, false) { ID = TaskId };
+                if (Done)
+                    DoneDate = DateTime.Today;
+
+                ToDoTask returnTask = new ToDoTask(Name, Text, StartDate, Deadline, (int)Math.Round(EstimatedTime, 0), SelectedColor.HexColor, Done, false) { ID = TaskId, DoneDate = DoneDate };
 
                 if (SelectedProject != null)
                 {

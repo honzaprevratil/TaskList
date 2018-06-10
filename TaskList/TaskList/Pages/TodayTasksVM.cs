@@ -21,7 +21,9 @@ namespace TaskList
         {
             AllToDoTasks.Clear();
             App.Database.GetItemsAsync<ToDoTask>().Result
-                .Where(x => DateTime.Compare(x.StartDate, DateTime.Now) <= 0).ToList()
+                .Where(x => DateTime.Compare(x.StartDate, DateTime.Now) <= 0 &&
+                            ((x.Done && x.DoneDate.Date == DateTime.Now.Date) || !x.Done)
+                        ).ToList()
                 .ForEach(x => AllToDoTasks.Add(x));
 
             AllTasksDone = (TasksToDo == ("0 / " + AllToDoTasks.Count()) ) ? true : false;

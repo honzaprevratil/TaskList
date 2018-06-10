@@ -120,6 +120,7 @@
                                 <Frame
                                     CornerRadius="10"  
                                     Padding="10"
+                                    BackgroundColor="{Binding HexColor}"
                                     Margin="10,4">
                                     <Grid>
                                         <Grid.RowDefinitions>

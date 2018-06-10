@@ -13,6 +13,8 @@ namespace TaskList
         public string Description { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime Deadline { get; set; }
+        public DateTime DoneDate { get; set; }
+
         public int EstimatedTime { get; set; }
         public string HexColor { get; set; }
         public bool Done { get; set; }

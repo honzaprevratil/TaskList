@@ -52,7 +52,10 @@ namespace TaskList
         }
         async void UpdateDone(object sender, EventArgs e)
         {
-            await App.Database.SaveItemAsync(((ToDoTask)this.BindingContext));
+            ToDoTask updateTask = ((ToDoTask)this.BindingContext);
+            if (updateTask.Done)
+                updateTask.DoneDate = DateTime.Today;
+            await App.Database.SaveItemAsync(updateTask);
         }
     }
 }

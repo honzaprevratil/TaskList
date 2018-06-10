@@ -77,7 +77,7 @@
                         
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <ViewCell>
+                                <ViewCell Height="40">
                                     <StackLayout Orientation="Horizontal">
                                         <Frame Margin="3" BackgroundColor="{Binding HexColor}" CornerRadius="19" Padding="15" HasShadow="False" WidthRequest="9" HeightRequest="0" />
                                         <Label Text="{Binding Name}" Margin="5,11,0,0"/>
